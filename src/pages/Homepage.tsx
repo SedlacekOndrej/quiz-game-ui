@@ -7,16 +7,18 @@ import { UserContext } from "../contexts/UserContext";
 export default function Homepage() {
     const { user } = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [gameType, setGameType] = useState<string>("");
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLElement>, gameType: string) => () => {
+        setGameType(gameType);
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => setAnchorEl(null);
 
-    const gameLink = (continent: string) => () => navigate(`/${continent}`);
+    const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}`);
 
     return (
         <>
@@ -39,12 +41,12 @@ export default function Homepage() {
                         {"Zaregistrujte se nyní a ukažte všem, že právě VY jste tím nejlepším znalcem!"}
                     </Typography>
                 </Container>}
-                
+
             {user !== null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Vyber si kategorii"}</Typography>
-                    <Button sx={{ mt: 2 }} size="large" onClick={handleClick}>{"Hlavní města"}</Button>
+                    <Button sx={{ mt: 2 }} size="large" onClick={(event) => handleClick(event, "capitals")}>{"Hlavní města"}</Button>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>
                         <MenuItem onClick={gameLink("europe")}>
                             <Typography>{"Evropa"}</Typography>
@@ -61,7 +63,7 @@ export default function Homepage() {
                     </Menu>
                     <Tooltip title="Již brzy">
                         <Box sx={{ mt: 2 }}>
-                            <Button size="large" disabled>{"Vlajky"}</Button>
+                            <Button size="large" onClick={(event) => handleClick(event, "flags")}>{"Vlajky"}</Button>
                         </Box>
                     </Tooltip>
                 </Container>}

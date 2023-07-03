@@ -1,4 +1,7 @@
+import { GameType } from "./GameType"
+
 export interface Questions {
-    states: string[]
-    cities: string[]
+    questions: string[]
+    possibleAnswers: string[]
+    gameType: GameType
 }
