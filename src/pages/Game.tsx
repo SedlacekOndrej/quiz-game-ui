@@ -9,7 +9,6 @@ import HomeNavigation from "../components/HomeNavigation";
 import { QuizContext } from "../contexts/QuizContext";
 import { UserContext } from "../contexts/UserContext";
 import { Answers } from "../models/Answers";
-import { GameType } from "../models/GameType";
 import { Questions } from "../models/Questions";
 import { Submit } from "../models/Submit";
 import { fetchGet, fetchPost } from "../utils/Fetches";
@@ -44,7 +43,7 @@ export default function Game() {
 
     useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + "?type=" + type, signal), {
         onSuccess: (data) => {
-            setGameType(data.gameType.toString());
+            setGameType(data.gameType);
             setQuestions(data.questions);
             setPossibleAnswers(data.possibleAnswers);
         }
