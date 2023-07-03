@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Homepage from './pages/Homepage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Registration from './pages/Registration';
+import Login from './pages/Login';
+import Leaderboards from './pages/Leaderboards';
+import NavBar from './components/NavBar';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { QuizProvider } from './contexts/QuizContext';
+import { UserProvider } from './contexts/UserContext';
+import Account from './pages/Account';
+import Game from './pages/Game';
+import Results from './pages/Results';
 
-function App() {
+export default function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <QuizProvider>
+          <UserProvider>
+            <BrowserRouter>
+              <NavBar />
+              <Routes>
+                <Route path='/' element={<Homepage />} />
+                <Route path='/registration' element={<Registration />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/leaderboards' element={<Leaderboards />} />
+                <Route path='/account' element={<Account />} />
+                <Route path='/:continent' element={<Game />} />
+                <Route path='/results' element={<Results />} />
+              </Routes>
+            </BrowserRouter>
+          </UserProvider>
+        </QuizProvider>
+      </QueryClientProvider>
+    </>
   );
 }
-
-export default App;

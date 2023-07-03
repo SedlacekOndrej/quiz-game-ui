@@ -1,0 +1,118 @@
+import { Button, Container, TextField, Typography } from "@mui/material";
+import { useContext, useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from "react-query";
+import { fetchPost } from "../utils/Fetches";
+import { QuizContext } from "../contexts/QuizContext";
+import HomeNavigation from "../components/HomeNavigation";
+import { urls } from "../utils/urls";
+
+const schema = yup.object({
+    username: yup.string().required("Povinné pole").min(4, "Musí obsahovat alespoň 4 znaky"),
+    password: yup.string().required("Povinné pole").min(6, "Musí obsahovat alespoň 6 znaků"),
+    passwordConfirm: yup.string().required("Povinné pole").oneOf([yup.ref("password")], "Hesla se neshodují"),
+    email: yup.string().required("Povinné pole").matches(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/, "Nesprávný formát emailu"),
+    emailConfirm: yup.string().required("Povinné pole").oneOf([yup.ref("email")], "Emaily se neshodují")
+});
+
+type Inputs = yup.InferType<typeof schema>;
+
+export default function Registration() {
+    const { usernameError, setUsernameError, passwordError, setPasswordError, passwordConfirmError, setPasswordConfirmError, emailError,
+        setEmailError, emailConfirmError, setEmailConfirmError, setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
+
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+        resolver: yupResolver(schema)
+    });
+
+    const onSubmit: SubmitHandler<Inputs> = data => mutate(data);
+
+    const { mutate } = useMutation((data: Inputs) => fetchPost(urls.registration, data),
+        {
+            onSuccess: (response: { message: string }) => {
+                const { message } = response;
+                setSeverity("success");
+                setResponseMessage(message);
+                setOpenSnackbar(true);
+                navigate("/");
+            },
+            onError: (message: string) => {
+                setSeverity("error");
+                setResponseMessage(message);
+                setOpenSnackbar(true);
+            }
+        }
+    );
+
+    useEffect(() => {
+        if (errors.username) setUsernameError(true);
+        if (!errors.username) setUsernameError(false);
+        if (errors.password) setPasswordError(true);
+        if (!errors.password) setPasswordError(false);
+        if (errors.passwordConfirm) setPasswordConfirmError(true);
+        if (!errors.passwordConfirm) setPasswordConfirmError(false);
+        if (errors.email) setEmailError(true);
+        if (!errors.email) setEmailError(false);
+        if (errors.emailConfirm) setEmailConfirmError(true);
+        if (!errors.emailConfirm) setEmailConfirmError(false);
+    }, [errors.username, errors.password, errors.passwordConfirm, errors.email, errors.emailConfirm,
+        setUsernameError, setPasswordError, setPasswordConfirmError, setEmailError, setEmailConfirmError]);
+
+    const navigate = useNavigate();
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Registrace"}</Typography>
+
+                <TextField sx={{ m: 2, width: 350 }}
+                variant="filled"
+                label="Uživatelské jméno"
+                helperText={errors.username?.message}
+                error={usernameError}
+                {...register("username")}
+                />
+
+                <TextField sx={{ m: 2, width: 350 }}
+                variant="filled"
+                label="Heslo"
+                helperText={errors.password?.message}
+                error={passwordError}
+                type="password"
+                {...register("password")}
+                />
+
+                <TextField sx={{ m: 2, width: 350 }}
+                variant="filled"
+                label="Ověření hesla"
+                helperText={errors.passwordConfirm?.message}
+                error={passwordConfirmError}
+                type="password"
+                {...register("passwordConfirm")}
+                />
+
+                <TextField sx={{ m: 2, width: 350 }}
+                variant="filled"
+                label="Email"
+                helperText={errors.email?.message}
+                error={emailError}
+                {...register("email")}
+                />
+
+                <TextField sx={{ m: 2, width: 350 }}
+                variant="filled"
+                label="Ověření emailu"
+                helperText={errors.emailConfirm?.message}
+                error={emailConfirmError}
+                {...register("emailConfirm")}
+                />
+
+                <Button sx={{ mt: 3 }} type="submit" variant="contained">{"Registrovat"}</Button>
+                <HomeNavigation />
+            </Container>
+        </form>
+    );
+}
