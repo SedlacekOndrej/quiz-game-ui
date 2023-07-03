@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { QuizContext } from "../contexts/QuizContext";
 import { UserContext } from "../contexts/UserContext";

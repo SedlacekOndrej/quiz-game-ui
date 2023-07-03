@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { fetchGet } from "../utils/Fetches";
 import HomeNavigation from "../components/HomeNavigation";
 import { urls } from "../utils/urls";
+import React from "react";
 
 export default function Leaderboards() {
 

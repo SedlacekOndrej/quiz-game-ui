@@ -1,6 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import HomeNavigation from "../components/HomeNavigation";
+import React from "react";
 
 export default function Results() {
     const { score, failedStates, succeededStates, continent, secondsLeft } = useLocation().state;
