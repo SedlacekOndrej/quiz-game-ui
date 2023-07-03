@@ -1,4 +1,4 @@
-import { Box, Button, Container, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Container, Menu, MenuItem, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomSnackbar from "../components/CustomSnackbar";
@@ -11,8 +11,13 @@ export default function Homepage() {
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>, gameType: string) => () => {
-        setGameType(gameType);
+    const handleCapitalsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setGameType("capitals");
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleFlagsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setGameType("flags");
         setAnchorEl(event.currentTarget);
     };
 
@@ -46,7 +51,7 @@ export default function Homepage() {
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Vyber si kategorii"}</Typography>
-                    <Button sx={{ mt: 2 }} size="large" onClick={(event) => handleClick(event, "capitals")}>{"Hlavní města"}</Button>
+                    <Button sx={{ mt: 2 }} size="large" onClick={handleCapitalsClick}>{"Hlavní města"}</Button>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>
                         <MenuItem onClick={gameLink("europe")}>
                             <Typography>{"Evropa"}</Typography>
@@ -61,11 +66,9 @@ export default function Homepage() {
                             <Typography>{"Afrika"}</Typography>
                         </MenuItem>
                     </Menu>
-                    <Tooltip title="Již brzy">
-                        <Box sx={{ mt: 2 }}>
-                            <Button size="large" onClick={(event) => handleClick(event, "flags")}>{"Vlajky"}</Button>
-                        </Box>
-                    </Tooltip>
+                    <Box sx={{ mt: 2 }}>
+                        <Button size="large" onClick={handleFlagsClick}>{"Vlajky"}</Button>
+                    </Box>
                 </Container>}
             <CustomSnackbar />
         </>

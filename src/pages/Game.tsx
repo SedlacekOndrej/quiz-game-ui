@@ -14,12 +14,13 @@ import { Questions } from "../models/Questions";
 import { Submit } from "../models/Submit";
 import { fetchGet, fetchPost } from "../utils/Fetches";
 import { urls } from "../utils/urls";
+import { useLocation } from "react-router-dom";
 
 export default function Game() {
     const { user } = useContext(UserContext);
     const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
     const [timer, setTimer] = useState<number>(30);
-    const [gameType, setGameType] = useState<GameType | null>(null);
+    const [gameType, setGameType] = useState<string>("");
     const [questions, setQuestions] = useState<string[]>([]);
     const [possibleAnswers, setPossibleAnswers] = useState<string[]>([]);
     const [userAnswers, setUserAnswers] = useState<Answers>({
@@ -37,14 +38,19 @@ export default function Game() {
 
     const params = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const type = queryParams.get('type');
 
-    useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent, signal), {
+    useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + "?type=" + type, signal), {
         onSuccess: (data) => {
-            setGameType(data.gameType);
+            setGameType(data.gameType.toString());
             setQuestions(data.questions);
             setPossibleAnswers(data.possibleAnswers);
         }
     });
+
+    console.log(gameType);
 
     const { mutate } = useMutation((data: Submit) => fetchPost(urls.submit, data),
         {
@@ -105,11 +111,11 @@ export default function Game() {
             {user !== null ? <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{continentName()}</Typography>
 
-                {gameType === GameType.CAPITALS &&
+                {gameType === "CAPITALS" &&
                     <CapitalsGame states={questions} cities={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
                 }
 
-                {gameType === GameType.FLAGS &&
+                {gameType === "FLAGS" &&
                     <FlagsGame flags={questions} states={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
                 }
 
