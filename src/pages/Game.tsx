@@ -100,7 +100,8 @@ export default function Game() {
         username: user?.username,
         continent: params.continent,
         states: questions,
-        answers: userAnswers
+        answers: userAnswers,
+        gameTime: 30 - timer
     };
 
     const handleSendAnswers = () => mutate(submitData);
