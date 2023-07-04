@@ -34,7 +34,7 @@ export default function Leaderboards() {
                   <TableCell sx={{ fontSize: 16 }} align="right">{user.exp}</TableCell>
                   <TableCell sx={{ fontSize: 16 }} align="right">{user.rightAnswers}</TableCell>
                   <TableCell sx={{ fontSize: 16 }} align="right">{user.wrongAnswers}</TableCell>
-                  <TableCell sx={{ fontSize: 16 }} align="right">{user.percentage + "%"}</TableCell>
+                  <TableCell sx={{ fontSize: 16 }} align="right">{user.percentage.toFixed(2) + "%"}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

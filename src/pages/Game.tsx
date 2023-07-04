@@ -61,7 +61,8 @@ export default function Game() {
                         failedStates: failedStates,
                         succeededStates: succeededStates,
                         continent: params.continent,
-                        secondsLeft: timer
+                        secondsLeft: 30 - timer,
+                        type: gameType
                     }
                 });
             },
