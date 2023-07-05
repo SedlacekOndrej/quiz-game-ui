@@ -5,4 +5,5 @@ export interface Submit {
     answers: Answers
     states: string[]
     gameTime: number
+    gameType: string
 }

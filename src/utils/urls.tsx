@@ -4,5 +4,6 @@ export const urls = {
     leaderboards: "http://localhost:8080/api/user/leaderboards",
     user: "http://localhost:8080/api/user/",
     questions: "http://localhost:8080/api/game/",
-    submit: "http://localhost:8080/api/game/submit"
+    submit: "http://localhost:8080/api/game/submit",
+    history: "http://localhost:8080/api/game/history"
 };

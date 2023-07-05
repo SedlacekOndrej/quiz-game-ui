@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { QuizContext } from "../contexts/QuizContext";
 import CustomSnackbar from "./CustomSnackbar";

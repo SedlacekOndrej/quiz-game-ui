@@ -1,5 +1,5 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -41,8 +41,7 @@ export default function Login() {
                 setOpenSnackbar(true);
                 navigate("/");
             },
-            onError: (response: { message: string }) => {
-                const { message } = response;
+            onError: (message: string ) => {
                 setSeverity("error");
                 setResponseMessage(message);
                 setOpenSnackbar(true);

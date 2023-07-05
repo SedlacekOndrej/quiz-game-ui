@@ -49,8 +49,6 @@ export default function Game() {
         }
     });
 
-    console.log(gameType);
-
     const { mutate } = useMutation((data: Submit) => fetchPost(urls.submit, data),
         {
             onSuccess: (response: { score: number, failedStates: string[], succeededStates: string[] }) => {
@@ -102,7 +100,8 @@ export default function Game() {
         continent: params.continent,
         states: questions,
         answers: userAnswers,
-        gameTime: 30 - timer
+        gameTime: 30 - timer,
+        gameType: gameType
     };
 
     const handleSendAnswers = () => mutate(submitData);

@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { QuizProvider } from './contexts/QuizContext';
 import { UserProvider } from './contexts/UserContext';
 import Account from './pages/Account';
-import Game from './pages/Game';
+import Quiz from './pages/Quiz';
 import Results from './pages/Results';
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/leaderboards' element={<Leaderboards />} />
                 <Route path='/account' element={<Account />} />
-                <Route path='/:continent' element={<Game />} />
+                <Route path='/:continent' element={<Quiz />} />
                 <Route path='/results' element={<Results />} />
               </Routes>
             </BrowserRouter>
