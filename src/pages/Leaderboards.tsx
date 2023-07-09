@@ -7,7 +7,7 @@ import { urls } from "../utils/urls";
 
 export default function Leaderboards() {
 
-  const { data: users = [] } = useQuery<User[]>(["leaderboards"], ({ signal }) => fetchGet(urls.leaderboards, signal));
+  const { data: users = [] } = useQuery<User[]>(["users"], ({ signal }) => fetchGet(urls.leaderboards, signal));
 
   return (
     <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
