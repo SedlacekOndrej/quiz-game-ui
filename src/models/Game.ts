@@ -8,5 +8,8 @@ export interface Game {
     gameTime: number
     questions: string[]
     answers: string[]
+    succeededQuestions: string[]
+    failedQuestions: string[]
+    rightAnswers: string[]
     user: User
 }
