@@ -1,4 +1,4 @@
-import { Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import { green } from "@mui/material/colors";
 import { Fragment, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -26,7 +26,8 @@ export default function TestResults() {
     };
 
     const getLabel = (answer: string, index: number) => {
-        return isRightAnswer(answer, index) ? <strong>{answer}</strong> : answer;
+        return isRightAnswer(answer, index) ? <Typography sx={{ fontSize: 20, fontWeight: "bold" }}>{answer}</Typography> :
+            <Typography sx={{ fontSize: 20 }}>{answer}</Typography>;
     };
 
     return (
@@ -34,7 +35,7 @@ export default function TestResults() {
             <FormControl>
                 {questions.map((question: string, index) =>
                     <Fragment key={index}>
-                        <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 20 }} id="question">{question}</FormLabel>
+                        <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 24 }} id="question">{question}</FormLabel>
                         <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" row>
 
                             <FormControlLabel
