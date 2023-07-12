@@ -23,8 +23,8 @@ export default function Results() {
                 <FlagsGame flags={questions} states={possibleAnswers} userAnswers={userAnswers} rightAnswers={rightAnswers} finished />
             }
 
-            <Typography sx={{ mb: 3, fontWeight: "bold", fontSize: 20 }}>{"Počet správných odpovědí: " + score}</Typography>
-            <Typography sx={{ mb: 3 }}>{"Odpovědět na otázky jste stihl/a za " + secondsLeft + " sekund."}</Typography>
+            <Typography sx={{ mt: 3, fontWeight: "bold", fontSize: 20 }}>{"Počet správných odpovědí: " + score}</Typography>
+            <Typography sx={{ mt: 3 }}>{"Odpovědět na otázky jste stihl/a za " + secondsLeft + " sekund."}</Typography>
 
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={gameLink}>{"Zkusit znovu"}</Button>
             <HomeNavigation />

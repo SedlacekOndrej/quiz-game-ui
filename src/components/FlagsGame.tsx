@@ -39,8 +39,8 @@ export default function FlagsGame(props: FlagsGameProps) {
         <FormControl>
             {flags.map((flag, index) =>
                 <Fragment key={index}>
-                    <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 24 }} id="question">
-                        <img style={{ width: "100px", height: "100px" }} src={`https://flagsapi.com/${flags[flags.indexOf(flag)]}/shiny/64.png`} alt={`flag${index + 1}`}></img>
+                    <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 26 }} id="question">
+                        <img style={{ width: "100px", height: "100px" }} src={`https://flagsapi.com/${flags[index]}/shiny/64.png`} alt={flag} />
                     </FormLabel>
                     <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={handleChange} row>
 

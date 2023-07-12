@@ -33,9 +33,9 @@ export default function TestResults() {
     return (
         <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
             <FormControl>
-                {questions.map((question: string, index) =>
+                {questions.map((question, index) =>
                     <Fragment key={index}>
-                        <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 24 }} id="question">{question}</FormLabel>
+                        <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 26 }} id="question">{question}</FormLabel>
                         <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" row>
 
                             <FormControlLabel

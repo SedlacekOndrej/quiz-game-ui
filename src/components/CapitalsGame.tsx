@@ -39,9 +39,8 @@ export default function CapitalsGame(props: CapitalsGameProps) {
         <FormControl>
             {states.map((state, index) =>
                 <Fragment key={index}>
-                    <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 24 }} id="state">
-                        {(index + 1).toString() + ". " + states[states.indexOf(state)]}
-                    </FormLabel>
+                    <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 26 }} id="state">{state}</FormLabel>
+
                     <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={handleChange} row>
 
                         <FormControlLabel
