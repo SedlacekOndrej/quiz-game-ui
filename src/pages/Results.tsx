@@ -11,9 +11,21 @@ export default function Results() {
 
     const gameLink = () => navigate(`/${continent}?type=${gameType}`);
 
+    const continentName = () => {
+        switch (continent) {
+            case "europe": return "Evropa";
+            case "asia": return "Asie a Oceánie";
+            case "america": return "Amerika";
+            case "africa": return "Afrika";
+        }
+    };
+
     return (
         <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Výsledky"}</Typography>
+            <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{continentName() + " - Výsledky"}</Typography>
+
+            <Typography sx={{ mb: 3, fontWeight: "bold", fontSize: 20 }}>{"Počet správných odpovědí: " + score}</Typography>
+            <Typography>{"Odpovědět na otázky jste stihl/a za " + secondsLeft + " sekund."}</Typography>
 
             {gameType === "CAPITALS" &&
                 <CapitalsGame states={questions} cities={possibleAnswers} userAnswers={userAnswers} rightAnswers={rightAnswers} finished />
@@ -22,9 +34,6 @@ export default function Results() {
             {gameType === "FLAGS" &&
                 <FlagsGame flags={questions} states={possibleAnswers} userAnswers={userAnswers} rightAnswers={rightAnswers} finished />
             }
-
-            <Typography sx={{ mt: 3, fontWeight: "bold", fontSize: 20 }}>{"Počet správných odpovědí: " + score}</Typography>
-            <Typography sx={{ mt: 3 }}>{"Odpovědět na otázky jste stihl/a za " + secondsLeft + " sekund."}</Typography>
 
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={gameLink}>{"Zkusit znovu"}</Button>
             <HomeNavigation />

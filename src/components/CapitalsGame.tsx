@@ -16,16 +16,20 @@ export default function CapitalsGame(props: CapitalsGameProps) {
     const { states, cities, timeOut, handleChange, userAnswers, rightAnswers, finished } = props;
 
     const isChecked = (answer: string, index: number) => {
-        if (userAnswers) {
-            const userAnswerValues = Object.values(userAnswers);
-            return userAnswerValues[index] === answer;
+        if (finished) {
+            if (userAnswers) {
+                const userAnswerValues = Object.values(userAnswers);
+                return userAnswerValues[index] === answer;
+            }
         }
         return false;
     };
 
     const isRightAnswer = (answer: string, index: number) => {
-        if (rightAnswers) {
-            return rightAnswers[index] === answer;
+        if (finished) {
+            if (rightAnswers) {
+                return rightAnswers[index] === answer;
+            }
         }
         return false;
     };
@@ -46,7 +50,7 @@ export default function CapitalsGame(props: CapitalsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(cities[index * 4], index) ? green[600] : null }}
                             value={cities[index * 4]}
-                            control={<Radio color={isRightAnswer(cities[index * 4], index) ? "success" : "error"} />}
+                            control={<Radio color={finished && isRightAnswer(cities[index * 4], index) ? "success" : "error"} />}
                             defaultChecked={isChecked(cities[index * 4], index)}
                             label={getLabel(cities[index * 4], index)}
                             disabled={timeOut}
@@ -55,7 +59,7 @@ export default function CapitalsGame(props: CapitalsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(cities[(index * 4) + 1], index) ? green[600] : null }}
                             value={cities[(index * 4) + 1]}
-                            control={<Radio color={isRightAnswer(cities[(index * 4) + 1], index) ? "success" : "error"} />}
+                            control={<Radio color={finished && isRightAnswer(cities[(index * 4) + 1], index) ? "success" : "error"} />}
                             defaultChecked={isChecked(cities[(index * 4) + 1], index)}
                             label={getLabel(cities[(index * 4) + 1], index)}
                             disabled={timeOut}
@@ -64,7 +68,7 @@ export default function CapitalsGame(props: CapitalsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(cities[(index * 4) + 2], index) ? green[600] : null }}
                             value={cities[(index * 4) + 2]}
-                            control={<Radio color={isRightAnswer(cities[(index * 4) + 2], index) ? "success" : "error"} />}
+                            control={<Radio color={finished && isRightAnswer(cities[(index * 4) + 2], index) ? "success" : "error"} />}
                             defaultChecked={isChecked(cities[(index * 4) + 2], index)}
                             label={getLabel(cities[(index * 4) + 2], index)}
                             disabled={timeOut}
@@ -73,7 +77,7 @@ export default function CapitalsGame(props: CapitalsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(cities[(index * 4) + 3], index) ? green[600] : null }}
                             value={cities[(index * 4) + 3]}
-                            control={<Radio color={isRightAnswer(cities[(index * 4) + 3], index) ? "success" : "error"} />}
+                            control={<Radio color={finished && isRightAnswer(cities[(index * 4) + 3], index) ? "success" : "error"} />}
                             defaultChecked={isChecked(cities[(index * 4) + 3], index)}
                             label={getLabel(cities[(index * 4) + 3], index)}
                             disabled={timeOut}
