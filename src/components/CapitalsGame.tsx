@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import { green } from "@mui/material/colors";
 import { ChangeEvent, Fragment } from "react";
 
@@ -31,14 +31,15 @@ export default function CapitalsGame(props: CapitalsGameProps) {
     };
 
     const getLabel = (answer: string, index: number) => {
-        return isRightAnswer(answer, index) ? <strong>{answer}</strong> : answer;
+        return isRightAnswer(answer, index) ? <Typography sx={{ fontSize: 20, fontWeight: "bold" }}>{answer}</Typography> :
+            <Typography sx={{ fontSize: 20 }}>{answer}</Typography>;
     };
 
     return (
         <FormControl>
             {states.map((state, index) =>
                 <Fragment key={index}>
-                    <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 20 }} id="state">
+                    <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 24 }} id="state">
                         {(index + 1).toString() + ". " + states[states.indexOf(state)]}
                     </FormLabel>
                     <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={handleChange} row>
