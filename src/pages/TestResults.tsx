@@ -16,48 +16,53 @@ export default function TestResults() {
     const { state } = useLocation();
     const [{ questions, possibleAnswers, rightAnswers, userAnswers }] = useState<LocationState>(state);
 
-    const isChecked = (answer: string) => {
-        return Object.values(userAnswers).includes(answer);
+    const isChecked = (answer: string, index: number) => {
+        const userAnswerValues = Object.values(userAnswers);
+        return userAnswerValues[index] === answer;
     };
 
-    const isRightAnswer = (answer: string) => {
-        return Object.values(rightAnswers).includes(answer);
+    const isRightAnswer = (answer: string, index: number) => {
+        return rightAnswers[index] === answer;
+    };
+
+    const getLabel = (answer: string, index: number) => {
+        return isRightAnswer(answer, index) ? <strong>{answer}</strong> : answer;
     };
 
     return (
         <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
             <FormControl>
                 {questions.map((question: string, index) =>
-                    <Fragment key={questions.indexOf(question)}>
+                    <Fragment key={index}>
                         <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 20 }} id="question">{question}</FormLabel>
                         <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" row>
 
                             <FormControlLabel
-                                sx={{ color: isRightAnswer(possibleAnswers[index * 4]) ? green[600] : null }}
-                                control={<Radio color={isRightAnswer(possibleAnswers[index * 4]) ? "success" : "error"} />}
-                                label={possibleAnswers[index * 4]}
-                                checked={isChecked(possibleAnswers[index * 4])}
+                                sx={{ color: isRightAnswer(possibleAnswers[index * 4], index) ? green[600] : null }}
+                                control={<Radio color={isRightAnswer(possibleAnswers[index * 4], index) ? "success" : "error"} />}
+                                label={getLabel(possibleAnswers[index * 4], index)}
+                                checked={isChecked(possibleAnswers[index * 4], index)}
                             />
 
                             <FormControlLabel
-                                sx={{ color: isRightAnswer(possibleAnswers[(index * 4) + 1]) ? green[600] : null }}
-                                control={<Radio color={isRightAnswer(possibleAnswers[(index * 4) + 1]) ? "success" : "error"} />}
-                                label={possibleAnswers[(index * 4) + 1]}
-                                checked={isChecked(possibleAnswers[(index * 4) + 1])}
+                                sx={{ color: isRightAnswer(possibleAnswers[(index * 4) + 1], index) ? green[600] : null }}
+                                control={<Radio color={isRightAnswer(possibleAnswers[(index * 4) + 1], index) ? "success" : "error"} />}
+                                label={getLabel(possibleAnswers[(index * 4) + 1], index)}
+                                checked={isChecked(possibleAnswers[(index * 4) + 1], index)}
                             />
 
                             <FormControlLabel
-                                sx={{ color: isRightAnswer(possibleAnswers[(index * 4) + 2]) ? green[600] : null }}
-                                control={<Radio color={isRightAnswer(possibleAnswers[(index * 4) + 2]) ? "success" : "error"} />}
-                                label={possibleAnswers[(index * 4) + 2]}
-                                checked={isChecked(possibleAnswers[(index * 4) + 2])}
+                                sx={{ color: isRightAnswer(possibleAnswers[(index * 4) + 2], index) ? green[600] : null }}
+                                control={<Radio color={isRightAnswer(possibleAnswers[(index * 4) + 2], index) ? "success" : "error"} />}
+                                label={getLabel(possibleAnswers[(index * 4) + 2], index)}
+                                checked={isChecked(possibleAnswers[(index * 4) + 2], index)}
                             />
 
                             <FormControlLabel
-                                sx={{ color: isRightAnswer(possibleAnswers[(index * 4) + 3]) ? green[600] : null }}
-                                control={<Radio color={isRightAnswer(possibleAnswers[(index * 4) + 3]) ? "success" : "error"} />}
-                                label={possibleAnswers[(index * 4) + 3]}
-                                checked={isChecked(possibleAnswers[(index * 4) + 3])}
+                                sx={{ color: isRightAnswer(possibleAnswers[(index * 4) + 3], index) ? green[600] : null }}
+                                control={<Radio color={isRightAnswer(possibleAnswers[(index * 4) + 3], index) ? "success" : "error"} />}
+                                label={getLabel(possibleAnswers[(index * 4) + 3], index)}
+                                checked={isChecked(possibleAnswers[(index * 4) + 3], index)}
                             />
 
                         </RadioGroup>

@@ -15,18 +15,23 @@ interface FlagsGameProps {
 export default function FlagsGame(props: FlagsGameProps) {
     const { flags, states, timeOut, handleChange, userAnswers, rightAnswers, finished } = props;
 
-    const isChecked = (answer: string) => {
+    const isChecked = (answer: string, index: number) => {
         if (userAnswers) {
-            return Object.values(userAnswers).includes(answer);
+            const userAnswerValues = Object.values(userAnswers);
+            return userAnswerValues[index] === answer;
         }
         return false;
     };
 
-    const isRightAnswer = (answer: string) => {
+    const isRightAnswer = (answer: string, index: number) => {
         if (rightAnswers) {
-            return Object.values(rightAnswers).includes(answer);
+            return rightAnswers[index] === answer;
         }
         return false;
+    };
+
+    const getLabel = (answer: string, index: number) => {
+        return isRightAnswer(answer, index) ? <strong>{answer}</strong> : answer;
     };
 
     return (
@@ -38,39 +43,39 @@ export default function FlagsGame(props: FlagsGameProps) {
                     </FormLabel>
                     <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={handleChange} row>
 
-                    <FormControlLabel
-                            sx={{ color: isRightAnswer(states[index * 4]) ? green[600] : null }}
+                        <FormControlLabel
+                            sx={{ color: isRightAnswer(states[index * 4], index) ? green[600] : null }}
                             value={states[index * 4]}
-                            control={<Radio color={isRightAnswer(states[index * 4]) ? "success" : "error"} />}
-                            checked={isChecked(states[index * 4])}
-                            label={states[index * 4]}
+                            control={<Radio color={isRightAnswer(states[index * 4], index) ? "success" : "error"} />}
+                            defaultChecked={isChecked(states[index * 4], index)}
+                            label={getLabel(states[index * 4], index)}
                             disabled={timeOut}
                         />
 
                         <FormControlLabel
-                            sx={{ color: isRightAnswer(states[(index * 4) + 1]) ? green[600] : null }}
+                            sx={{ color: isRightAnswer(states[(index * 4) + 1], index) ? green[600] : null }}
                             value={states[(index * 4) + 1]}
-                            control={<Radio color={isRightAnswer(states[(index * 4) + 1]) ? "success" : "error"} />}
-                            checked={isChecked(states[(index * 4) + 1])}
-                            label={states[(index * 4) + 1]}
+                            control={<Radio color={isRightAnswer(states[(index * 4) + 1], index) ? "success" : "error"} />}
+                            defaultChecked={isChecked(states[(index * 4) + 1], index)}
+                            label={getLabel(states[(index * 4) + 1], index)}
                             disabled={timeOut}
                         />
 
                         <FormControlLabel
-                            sx={{ color: isRightAnswer(states[(index * 4) + 2]) ? green[600] : null }}
+                            sx={{ color: isRightAnswer(states[(index * 4) + 2], index) ? green[600] : null }}
                             value={states[(index * 4) + 2]}
-                            control={<Radio color={isRightAnswer(states[(index * 4) + 2]) ? "success" : "error"} />}
-                            checked={isChecked(states[(index * 4) + 2])}
-                            label={states[(index * 4) + 2]}
+                            control={<Radio color={isRightAnswer(states[(index * 4) + 2], index) ? "success" : "error"} />}
+                            defaultChecked={isChecked(states[(index * 4) + 2], index)}
+                            label={getLabel(states[(index * 4) + 2], index)}
                             disabled={timeOut}
                         />
 
                         <FormControlLabel
-                            sx={{ color: isRightAnswer(states[(index * 4) + 3]) ? green[600] : null }}
+                            sx={{ color: isRightAnswer(states[(index * 4) + 3], index) ? green[600] : null }}
                             value={states[(index * 4) + 3]}
-                            control={<Radio color={isRightAnswer(states[(index * 4) + 3]) ? "success" : "error"} />}
-                            checked={isChecked(states[(index * 4) + 3])}
-                            label={states[(index * 4) + 3]}
+                            control={<Radio color={isRightAnswer(states[(index * 4) + 3], index) ? "success" : "error"} />}
+                            defaultChecked={isChecked(states[(index * 4) + 3], index)}
+                            label={getLabel(states[(index * 4) + 3], index)}
                             disabled={timeOut}
                         />
 

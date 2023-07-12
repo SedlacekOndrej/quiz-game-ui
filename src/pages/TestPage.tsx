@@ -8,9 +8,9 @@ export default function TestPage() {
     const questions = ["Česko", "Slovensko", "Polsko", "Rakousko"];
     const possibleAnswers = [
         "Praha", "Madrid", "Vilnius", "Riga",
-        "Řím", "Bratislava", "Moskva", "Minsk",
+        "Řím", "Bratislava", "Praha", "Minsk",
         "Lisabon", "Londýn", "Varšava", "Brusel",
-        "Skopje", "Paříž", "Atény", "Vídeň"
+        "Bratislava", "Paříž", "Atény", "Vídeň"
     ];
     const rightAnswers = ["Praha", "Bratislava", "Varšava", "Vídeň"];
     const [userAnswers, setUserAnswers] = useState<Answers>({

@@ -52,12 +52,10 @@ export default function Game() {
     const { mutate } = useMutation((data: Submit) => fetchPost(urls.submit, data),
         {
             onSuccess: (response: { score: number, failedStates: string[], succeededStates: string[], rightAnswers: string[] }) => {
-                const { score, failedStates, succeededStates, rightAnswers } = response;
+                const { score, rightAnswers } = response;
                 navigate("/results", {
                     state: {
                         score: score,
-                        failedStates: failedStates,
-                        succeededStates: succeededStates,
                         continent: params.continent,
                         secondsLeft: 30 - timer,
                         gameType: gameType,
