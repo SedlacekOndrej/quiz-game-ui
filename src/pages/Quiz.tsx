@@ -100,7 +100,7 @@ export default function Game() {
     const submitData = {
         username: user?.username,
         continent: params.continent,
-        states: questions,
+        questions: questions,
         answers: userAnswers,
         gameTime: 30 - timer,
         gameType: gameType

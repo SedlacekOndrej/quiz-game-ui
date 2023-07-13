@@ -16,16 +16,18 @@ export default function CapitalsGame(props: CapitalsGameProps) {
     const { states, cities, timeOut, handleChange, userAnswers, rightAnswers, finished } = props;
 
     const isChecked = (answer: string, index: number) => {
-        if (userAnswers) {
-            const userAnswerValues = Object.values(userAnswers);
-            return userAnswerValues[index] === answer;
-        }
+            if (userAnswers) {
+                const userAnswerValues = Object.values(userAnswers);
+                return userAnswerValues[index] === answer;
+            }
         return false;
     };
 
     const isRightAnswer = (answer: string, index: number) => {
-        if (rightAnswers) {
-            return rightAnswers[index] === answer;
+        if (finished) {
+            if (rightAnswers) {
+                return rightAnswers[index] === answer;
+            }
         }
         return false;
     };
