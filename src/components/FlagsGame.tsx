@@ -38,7 +38,7 @@ export default function FlagsGame(props: FlagsGameProps) {
             <Typography sx={{ fontSize: 20 }}>{answer}</Typography>;
     };
 
-    const radioColor = (index: number) => isRightAnswer(states[index * 4], index) ? "success" : "error";
+    const radioColor = (index: number, numberOfQuestion: number) => isRightAnswer(states[(index * 4) + numberOfQuestion], index) ? "success" : "error";
 
     return (
         <FormControl>
@@ -52,7 +52,7 @@ export default function FlagsGame(props: FlagsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(states[index * 4], index) ? green[600] : null }}
                             value={states[index * 4]}
-                            control={<Radio color={finished ? radioColor(index) : undefined} />}
+                            control={<Radio color={finished ? radioColor(index, 0) : undefined} />}
                             checked={finished ? isChecked(states[index * 4], index) : undefined}
                             label={getLabel(states[index * 4], index)}
                             disabled={timeOut}
@@ -61,7 +61,7 @@ export default function FlagsGame(props: FlagsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(states[(index * 4) + 1], index) ? green[600] : null }}
                             value={states[(index * 4) + 1]}
-                            control={<Radio color={finished ? radioColor(index) : undefined} />}
+                            control={<Radio color={finished ? radioColor(index, 1) : undefined} />}
                             checked={finished ? isChecked(states[(index * 4) + 1], index) : undefined}
                             label={getLabel(states[(index * 4) + 1], index)}
                             disabled={timeOut}
@@ -70,7 +70,7 @@ export default function FlagsGame(props: FlagsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(states[(index * 4) + 2], index) ? green[600] : null }}
                             value={states[(index * 4) + 2]}
-                            control={<Radio color={finished ? radioColor(index) : undefined} />}
+                            control={<Radio color={finished ? radioColor(index, 2) : undefined} />}
                             checked={finished ? isChecked(states[(index * 4) + 2], index) : undefined}
                             label={getLabel(states[(index * 4) + 2], index)}
                             disabled={timeOut}
@@ -79,7 +79,7 @@ export default function FlagsGame(props: FlagsGameProps) {
                         <FormControlLabel
                             sx={{ color: isRightAnswer(states[(index * 4) + 3], index) ? green[600] : null }}
                             value={states[(index * 4) + 3]}
-                            control={<Radio color={finished ? radioColor(index) : undefined} />}
+                            control={<Radio color={finished ? radioColor(index, 3) : undefined} />}
                             checked={finished ? isChecked(states[(index * 4) + 3], index) : undefined}
                             label={getLabel(states[(index * 4) + 3], index)}
                             disabled={timeOut}
