@@ -13,7 +13,7 @@ export default function Leaderboards() {
     <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Žebříček nejlepších"}</Typography>
 
-      {users?.length > 0 ? <TableContainer sx={{ m: 2, border: 1 }}>
+      {users.length > 0 ? <TableContainer sx={{ m: 2, border: 1 }}>
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#1976d2" }}>
@@ -26,7 +26,7 @@ export default function Leaderboards() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users?.map((user) => (
+            {users.map((user) => (
               <TableRow key={user.id} sx={{ backgroundColor: "#e0e0e0" }}>
                 <TableCell sx={{ fontSize: 16 }}>{user.username}</TableCell>
                 <TableCell sx={{ fontSize: 16 }} align="right">{user.level}</TableCell>

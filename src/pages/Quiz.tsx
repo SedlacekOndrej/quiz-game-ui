@@ -19,9 +19,6 @@ export default function Game() {
     const { user } = useContext(UserContext);
     const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
     const [timer, setTimer] = useState<number>(30);
-    const [gameType, setGameType] = useState<string>("");
-    const [questions, setQuestions] = useState<string[]>([]);
-    const [possibleAnswers, setPossibleAnswers] = useState<string[]>([]);
     const [userAnswers, setUserAnswers] = useState<Answers>({
         answer1: "",
         answer2: "",
@@ -41,17 +38,13 @@ export default function Game() {
     const queryParams = new URLSearchParams(location.search);
     const type = queryParams.get('type');
 
-    useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + "?type=" + type, signal), {
-        onSuccess: (data) => {
-            setGameType(data.gameType);
-            setQuestions(data.questions);
-            setPossibleAnswers(data.possibleAnswers);
-        }
-    });
+    const { data = {} as Questions } = useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + "?type=" + type, signal));
+
+    const { gameType, questions, possibleAnswers} = data;
 
     const { mutate } = useMutation((data: Submit) => fetchPost(urls.submit, data),
         {
-            onSuccess: (response: { score: number, failedStates: string[], succeededStates: string[], rightAnswers: string[] }) => {
+            onSuccess: (response: { score: number, rightAnswers: string[] }) => {
                 const { score, rightAnswers } = response;
                 navigate("/results", {
                     state: {

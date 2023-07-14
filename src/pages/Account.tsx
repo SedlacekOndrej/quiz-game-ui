@@ -7,11 +7,12 @@ import { User } from "../models/User";
 import { fetchGet } from "../utils/Fetches";
 import { urls } from "../utils/urls";
 import AccessDenied from "../components/AccessDenied";
+import UserGamesHistory from "../components/UserGamesHistory";
 
 export default function Account() {
     const { user } = useContext(UserContext);
 
-    const { data } = useQuery<User>(["user"], ({ signal }) => fetchGet(urls.user + user?.id, signal));
+    const { data = {} as User } = useQuery<User>(["user"], ({ signal }) => fetchGet(urls.user + user?.id, signal));
 
     return (
         <>
@@ -21,7 +22,7 @@ export default function Account() {
                 <Card sx={{ m: 2, border: 1 }}>
                     <CardHeader
                         sx={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#1976d2", color: "white" }}
-                        title={data?.username}
+                        title={data.username}
                     />
                     <CardContent sx={{ backgroundColor: "#e0e0e0" }}>
                         <Grid container justifyContent="center" spacing={1} sx={{ maxWidth: 600 }}>
@@ -29,41 +30,43 @@ export default function Account() {
                                 <Typography sx={{ fontWeight: "bold" }}>{"Úroveň:"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography>{data?.level}</Typography>
+                                <Typography>{data.level}</Typography>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography sx={{ fontWeight: "bold" }}>{"Zkušenosti:"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography>{data?.exp}</Typography>
+                                <Typography>{data.exp}</Typography>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography sx={{ fontWeight: "bold" }}>{"Počet správných odpovědí:"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography>{data?.rightAnswers}</Typography>
+                                <Typography>{data.rightAnswers}</Typography>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography sx={{ fontWeight: "bold" }}>{"Počet špatných odpovědí:"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography>{data?.wrongAnswers}</Typography>
+                                <Typography>{data.wrongAnswers}</Typography>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography sx={{ fontWeight: "bold" }}>{"Procento úspěšnosti:"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography>{data?.percentage.toFixed(2) + "%"}</Typography>
+                                <Typography>{data.percentage.toFixed(2) + "%"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
                                 <Typography sx={{ fontWeight: "bold" }}>{"Email:"}</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Typography>{data?.email}</Typography>
+                                <Typography>{data.email}</Typography>
                             </Grid>
                         </Grid>
                     </CardContent>
                 </Card>
+
+                <UserGamesHistory user={data} />
 
                 <HomeNavigation />
             </Container>
