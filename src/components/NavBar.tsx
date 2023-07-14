@@ -128,7 +128,7 @@ export default function NavBar(props: NavBarProps) {
                                     <AccountCircle />
                                 </IconButton>
                                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} keepMounted>
-                                    <MenuItem onClick={accountLink}><Person sx={{ mr: 1 }} color="info" />{"Můj profil"}</MenuItem>
+                                    <MenuItem onClick={accountLink}><Person sx={{ mr: 1, mb: 1 }} color="info" />{"Můj profil"}</MenuItem>
                                     <MenuItem onClick={logout}><Logout sx={{ mr: 1 }} color="error" />{"Odhlásit"}</MenuItem>
                                 </Menu>
                             </Fragment>

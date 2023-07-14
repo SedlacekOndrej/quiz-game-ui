@@ -36,8 +36,8 @@ export default function AllGamesHistory() {
         <>
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
 
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{"Historie her"}</DialogTitle>
+            <Dialog open={open} onClose={handleClose} fullScreen>
+                <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her"}</DialogTitle>
 
                 <DialogContent>
                     <Table>
@@ -48,25 +48,26 @@ export default function AllGamesHistory() {
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Varianta"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Skóre"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Čas"}</TableCell>
+                                <TableCell align="right"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {games.map((game) => (
+                            {Array(games.map((game) => (
                                 <TableRow key={game.id} sx={{ backgroundColor: "#e0e0e0" }}>
                                     <TableCell sx={{ fontSize: 16 }}>{game.createdDate}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.username}</TableCell>
-                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameType}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameType === "FLAGS" ? "Vlajky" : "Hlavní města"}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.score}</TableCell>
-                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime + " s"}</TableCell>
                                     <TableCell sx={{ fontSize: 16, textDecoration: "underline", cursor: "pointer" }} align="right" onClick={resultsLink(game)}>{"Zobrazit detaily"}</TableCell>
                                 </TableRow>
-                            ))}
+                            )))}
                         </TableBody>
                     </Table>
                 </DialogContent>
 
                 <DialogActions>
-                    <Button type="button" onClick={handleClose}>{"Zavřít"}</Button>
+                    <Button type="button" size="large" onClick={handleClose}>{"Zavřít"}</Button>
                 </DialogActions>
             </Dialog>
         </>

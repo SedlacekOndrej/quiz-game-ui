@@ -25,8 +25,6 @@ export default function Results() {
         <>
             <NavBar title={"Výsledky - " + continentName()} />
             <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{continentName() + " - Výsledky"}</Typography>
-
                 <Typography sx={{ mb: 3, fontWeight: "bold", fontSize: 20 }}>{"Počet správných odpovědí: " + score}</Typography>
                 <Typography>{"Odpovědět na otázky jste stihl/a za " + secondsLeft + " sekund."}</Typography>
 

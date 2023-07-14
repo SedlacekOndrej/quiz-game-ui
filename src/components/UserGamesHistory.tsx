@@ -8,14 +8,14 @@ import { fetchGet } from "../utils/Fetches";
 import { urls } from "../utils/urls";
 
 interface UserGamesHistoryProps {
-    user: User
+    user: User | undefined
 }
 
 export default function UserGamesHistory(props: UserGamesHistoryProps) {
     const { user } = props;
     const [open, setOpen] = useState<boolean>(false);
 
-    const { data: games = [] } = useQuery<Game[]>(["game"], ({ signal }) => fetchGet(urls.history + `/${user.id}`, signal));
+    const { data: games = [] } = useQuery<Game[]>(["game"], ({ signal }) => fetchGet(urls.history + `/${user?.id}`, signal));
 
     const navigate = useNavigate();
 
@@ -42,8 +42,8 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
         <>
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
 
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{"Historie her uživatele " + user.username}</DialogTitle>
+            <Dialog open={open} onClose={handleClose} fullScreen>
+                <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her uživatele " + user?.username}</DialogTitle>
 
                 <DialogContent>
                     <Table>
@@ -53,15 +53,17 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Varianta"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Skóre"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Čas"}</TableCell>
+                                <TableCell align="right"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {games.map((game) => (
                                 <TableRow key={game.id} sx={{ backgroundColor: "#e0e0e0" }}>
                                     <TableCell sx={{ fontSize: 16 }}>{game.createdDate}</TableCell>
-                                    <TableCell sx={{ fontSize: 16, textDecoration: "underline", cursor: "pointer" }} align="right" onClick={resultsLink(game)}>{game.gameType}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameType === "FLAGS" ? "Vlajky" : "Hlavní města"}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.score}</TableCell>
-                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime + " s"}</TableCell>
+                                    <TableCell sx={{ fontSize: 16, textDecoration: "underline", cursor: "pointer" }} align="right" onClick={resultsLink(game)}>{"Zobrazit detaily"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
