@@ -3,19 +3,13 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Game } from "../models/Game";
-import { User } from "../models/User";
 import { fetchGet } from "../utils/Fetches";
 import { urls } from "../utils/urls";
 
-interface UserGamesHistoryProps {
-    user: User
-}
-
-export default function UserGamesHistory(props: UserGamesHistoryProps) {
-    const { user } = props;
+export default function AllGamesHistory() {
     const [open, setOpen] = useState<boolean>(false);
 
-    const { data: games = [] } = useQuery<Game[]>(["game"], ({ signal }) => fetchGet(urls.history + `/${user.id}`, signal));
+    const { data: games = [] } = useQuery<Game[]>(["game"], ({ signal }) => fetchGet(urls.history, signal));
 
     const navigate = useNavigate();
 
@@ -43,7 +37,7 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
 
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>{"Historie her uživatele " + user.username}</DialogTitle>
+                <DialogTitle>{"Historie her"}</DialogTitle>
 
                 <DialogContent>
                     <Table>

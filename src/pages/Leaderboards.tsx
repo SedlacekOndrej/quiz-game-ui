@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { fetchGet } from "../utils/Fetches";
 import HomeNavigation from "../components/HomeNavigation";
 import { urls } from "../utils/urls";
+import AllGamesHistory from "../components/AllGamesHistory";
 
 export default function Leaderboards() {
 
@@ -38,8 +39,11 @@ export default function Leaderboards() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer> :
+      </TableContainer>
+        :
         <Typography sx={{ fontSize: 20 }}>{"Nebyl nalezen žádný uživatel"}</Typography>}
+
+      <AllGamesHistory />
 
       <HomeNavigation />
     </Container>
