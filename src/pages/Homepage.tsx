@@ -2,6 +2,7 @@ import { Box, Button, Container, Menu, MenuItem, Typography } from "@mui/materia
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomSnackbar from "../components/CustomSnackbar";
+import NavBar from "../components/NavBar";
 import { UserContext } from "../contexts/UserContext";
 
 export default function Homepage() {
@@ -27,6 +28,7 @@ export default function Homepage() {
 
     return (
         <>
+            <NavBar title="Hlavní stránka" />
             {user === null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />

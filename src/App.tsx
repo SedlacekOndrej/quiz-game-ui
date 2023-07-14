@@ -1,11 +1,9 @@
 import './App.css';
-import React from 'react';
 import Homepage from './pages/Homepage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Leaderboards from './pages/Leaderboards';
-import NavBar from './components/NavBar';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { QuizProvider } from './contexts/QuizContext';
 import { UserProvider } from './contexts/UserContext';
@@ -24,7 +22,6 @@ export default function App() {
         <QuizProvider>
           <UserProvider>
             <BrowserRouter>
-              <NavBar />
               <Routes>
                 <Route path='/' element={<Homepage />} />
                 <Route path='/registration' element={<Registration />} />

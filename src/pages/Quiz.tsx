@@ -1,4 +1,4 @@
-import { Button, Fab, Grid, Typography, Container } from "@mui/material";
+import { Button, Fab, Grid, Container } from "@mui/material";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
@@ -14,6 +14,7 @@ import { Submit } from "../models/Submit";
 import { fetchGet, fetchPost } from "../utils/Fetches";
 import { urls } from "../utils/urls";
 import { useLocation } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 export default function Game() {
     const { user } = useContext(UserContext);
@@ -40,7 +41,7 @@ export default function Game() {
 
     const { data = {} as Questions } = useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + "?type=" + type, signal));
 
-    const { gameType, questions, possibleAnswers} = data;
+    const { gameType, questions, possibleAnswers } = data;
 
     const { mutate } = useMutation((data: Submit) => fetchPost(urls.submit, data),
         {
@@ -103,8 +104,8 @@ export default function Game() {
 
     return (
         <>
+            <NavBar title={"Kvíz - " + continentName()} />
             {user !== null ? <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{continentName()}</Typography>
 
                 {gameType === "CAPITALS" &&
                     <CapitalsGame states={questions} cities={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />

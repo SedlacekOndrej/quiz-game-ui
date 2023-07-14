@@ -11,6 +11,7 @@ import { User } from "../models/User";
 import { UserContext } from "../contexts/UserContext";
 import HomeNavigation from "../components/HomeNavigation";
 import { urls } from "../utils/urls";
+import NavBar from "../components/NavBar";
 
 const schema = yup.object({
     username: yup.string().required("Povinné pole"),
@@ -41,7 +42,7 @@ export default function Login() {
                 setOpenSnackbar(true);
                 navigate("/");
             },
-            onError: (message: string ) => {
+            onError: (message: string) => {
                 setSeverity("error");
                 setResponseMessage(message);
                 setOpenSnackbar(true);
@@ -57,25 +58,27 @@ export default function Login() {
     }, [errors.username, errors.password, setUsernameError, setPasswordError]);
 
     return (
+        <>
+            <NavBar title="Přihlášení" />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Přihlášení"}</Typography>
 
                     <TextField sx={{ m: 2, width: 350 }}
-                    variant="filled"
-                    label="Uživatelské jméno"
-                    helperText={errors.username?.message}
-                    error={usernameError}
-                    {...register("username")}
+                        variant="filled"
+                        label="Uživatelské jméno"
+                        helperText={errors.username?.message}
+                        error={usernameError}
+                        {...register("username")}
                     />
 
                     <TextField sx={{ m: 2, width: 350 }}
-                    variant="filled"
-                    label="Heslo"
-                    helperText={errors.password?.message}
-                    error={passwordError}
-                    type="password"
-                    {...register("password")}
+                        variant="filled"
+                        label="Heslo"
+                        helperText={errors.password?.message}
+                        error={passwordError}
+                        type="password"
+                        {...register("password")}
                     />
 
                     <Button sx={{ mt: 3 }} type="submit" variant="contained">{"Přihlásit"}</Button>
@@ -83,5 +86,6 @@ export default function Login() {
                     <HomeNavigation />
                 </Container>
             </form>
+        </>
     );
 }

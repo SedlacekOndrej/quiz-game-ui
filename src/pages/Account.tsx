@@ -8,6 +8,7 @@ import { fetchGet } from "../utils/Fetches";
 import { urls } from "../utils/urls";
 import AccessDenied from "../components/AccessDenied";
 import UserGamesHistory from "../components/UserGamesHistory";
+import NavBar from "../components/NavBar";
 
 export default function Account() {
     const { user } = useContext(UserContext);
@@ -16,6 +17,7 @@ export default function Account() {
 
     return (
         <>
+            <NavBar title="Profil uživatele" />
             {user !== null ? <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Informace o účtu"}</Typography>
 
