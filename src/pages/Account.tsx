@@ -19,8 +19,6 @@ export default function Account() {
         <>
             <NavBar title="Profil uživatele" />
             {user !== null ? <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Informace o účtu"}</Typography>
-
                 <Card sx={{ m: 2, border: 1 }}>
                     <CardHeader
                         sx={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#1976d2", color: "white" }}

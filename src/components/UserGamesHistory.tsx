@@ -1,11 +1,9 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useState } from "react";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Game } from "../models/Game";
 import { User } from "../models/User";
-import { fetchGet } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import moment from "moment";
 
 interface UserGamesHistoryProps {
     user: User | undefined
@@ -14,8 +12,6 @@ interface UserGamesHistoryProps {
 export default function UserGamesHistory(props: UserGamesHistoryProps) {
     const { user } = props;
     const [open, setOpen] = useState<boolean>(false);
-
-    const { data: games = [] } = useQuery<Game[]>(["game"], ({ signal }) => fetchGet(urls.history + `/${user?.id}`, signal));
 
     const navigate = useNavigate();
 
@@ -27,7 +23,7 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
         navigate("/results", {
             state: {
                 score: game.score,
-                continent: game.continent,
+                continent: game.continentName,
                 secondsLeft: game.gameTime,
                 gameType: game.gameType,
                 questions: game.questions,
@@ -42,7 +38,7 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
         <>
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
 
-            <Dialog open={open} onClose={handleClose} fullScreen>
+            <Dialog open={open} onClose={handleClose}>
                 <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her uživatele " + user?.username}</DialogTitle>
 
                 <DialogContent>
@@ -57,10 +53,10 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {games.map((game) => (
+                            {user?.games.map((game) => (
                                 <TableRow key={game.id} sx={{ backgroundColor: "#e0e0e0" }}>
-                                    <TableCell sx={{ fontSize: 16 }}>{game.createdDate}</TableCell>
-                                    <TableCell sx={{ fontSize: 16 }} align="right">{game.gameType === "FLAGS" ? "Vlajky" : "Hlavní města"}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }}>{moment(game.createdDate).format("DD. MM. YYYY HH:mm")}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }} width={100} align="right">{game.gameType === "FLAGS" ? "Vlajky" : "Hlavní města"}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.score}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime + " s"}</TableCell>
                                     <TableCell sx={{ fontSize: 16, textDecoration: "underline", cursor: "pointer" }} align="right" onClick={resultsLink(game)}>{"Zobrazit detaily"}</TableCell>

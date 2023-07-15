@@ -5,11 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { GameHistory } from "../models/GameHistory";
 import { fetchGet } from "../utils/Fetches";
 import { urls } from "../utils/urls";
+import moment from "moment";
 
 export default function AllGamesHistory() {
     const [open, setOpen] = useState<boolean>(false);
+    const [games, setGames] = useState<GameHistory[]>([]);
 
-    const { data: games = [] } = useQuery<GameHistory[]>(["game"], ({ signal }) => fetchGet(urls.history, signal));
+    useQuery<GameHistory[]>(["game"], ({ signal }) => fetchGet(urls.history, signal), {
+        onSuccess: (data) => setGames(data)
+    });
 
     const navigate = useNavigate();
 
@@ -36,7 +40,7 @@ export default function AllGamesHistory() {
         <>
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
 
-            <Dialog open={open} onClose={handleClose} fullScreen>
+            <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
                 <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her"}</DialogTitle>
 
                 <DialogContent>
@@ -52,16 +56,16 @@ export default function AllGamesHistory() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {Array(games.map((game) => (
+                            {games.map((game) => (
                                 <TableRow key={game.id} sx={{ backgroundColor: "#e0e0e0" }}>
-                                    <TableCell sx={{ fontSize: 16 }}>{game.createdDate}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }}>{moment(game.createdDate).format("DD. MM. YYYY, HH:mm")}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.username}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.gameType === "FLAGS" ? "Vlajky" : "Hlavní města"}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.score}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime + " s"}</TableCell>
                                     <TableCell sx={{ fontSize: 16, textDecoration: "underline", cursor: "pointer" }} align="right" onClick={resultsLink(game)}>{"Zobrazit detaily"}</TableCell>
                                 </TableRow>
-                            )))}
+                            ))}
                         </TableBody>
                     </Table>
                 </DialogContent>

@@ -1,7 +1,7 @@
 export interface Game {
     id: number
     createdDate: string
-    continent: string
+    continentName: string
     gameType: string
     score: number
     gameTime: number
