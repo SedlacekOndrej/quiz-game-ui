@@ -31,7 +31,7 @@ export default function Homepage() {
             <NavBar title="Hlavní stránka" />
             {user === null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />
+                    <img src={process.env.PUBLIC_URL + '/globe256.png'} alt="logo" />
                     <Typography sx={{ mt: 3, fontWeight: "bold", fontSize: 30 }}>
                         {"Vítejte ve hře Kvíz!"}
                     </Typography>
