@@ -1,8 +1,6 @@
-import { Answers } from "./Answers";
-
 export interface Submit {
     continent: string | undefined
-    answers: Answers
+    answers: string[]
     questions: string[]
     gameTime: number
     gameType: string

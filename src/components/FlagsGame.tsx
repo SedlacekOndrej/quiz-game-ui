@@ -6,7 +6,7 @@ interface FlagsGameProps {
     flags: string[]
     states: string[]
     timeOut?: boolean
-    handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    handleChange?: (index: number) => (event: ChangeEvent<HTMLInputElement>) => void
     userAnswers?: string[]
     rightAnswers?: string[]
     finished?: boolean
@@ -30,6 +30,14 @@ export default function FlagsGame(props: FlagsGameProps) {
         return false;
     };
 
+    const onChangeMethod = (index: number) => () => {
+        if (finished) return undefined;
+        
+        if (handleChange) {
+            return handleChange(index);
+        } else return undefined;
+    };
+
     const getLabel = (answer: string, index: number) => {
         if (!finished) {
             return <Typography sx={{ fontSize: 20 }}>{answer}</Typography>;
@@ -47,7 +55,7 @@ export default function FlagsGame(props: FlagsGameProps) {
                     <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 26 }} id="question">
                         <img style={{ width: "100px", height: "100px" }} src={`https://flagsapi.com/${flags[index]}/shiny/64.png`} alt={flag} />
                     </FormLabel>
-                    <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={finished ? undefined : handleChange} row>
+                    <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={onChangeMethod(index)} row>
 
                         <FormControlLabel
                             sx={{ color: isRightAnswer(states[index * 4], index) ? green[600] : null }}

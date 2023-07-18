@@ -8,7 +8,6 @@ import FlagsGame from "../components/FlagsGame";
 import HomeNavigation from "../components/HomeNavigation";
 import { QuizContext } from "../contexts/QuizContext";
 import { UserContext } from "../contexts/UserContext";
-import { Answers } from "../models/Answers";
 import { Questions } from "../models/Questions";
 import { Submit } from "../models/Submit";
 import { fetchGet, fetchPost } from "../utils/Fetches";
@@ -20,18 +19,7 @@ export default function Game() {
     const { user } = useContext(UserContext);
     const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
     const [timer, setTimer] = useState<number>(30);
-    const [userAnswers, setUserAnswers] = useState<Answers>({
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        answer4: "",
-        answer5: "",
-        answer6: "",
-        answer7: "",
-        answer8: "",
-        answer9: "",
-        answer10: ""
-    });
+    const [userAnswers, setUserAnswers] = useState<string[]>([]);
 
     const params = useParams();
     const navigate = useNavigate();
@@ -87,9 +75,18 @@ export default function Game() {
 
     const color = timeOut ? "error" : "primary";
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setUserAnswers((prevAnswers) => ({ ...prevAnswers, [e.target.name]: e.target.value }));
-    };
+    const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedValue = event.target.value;
+        
+        setUserAnswers((prevAnswers) => {
+            const newArray = [...prevAnswers];
+            while (newArray.length < index + 1) {
+                newArray.push("");
+            }
+            newArray[index] = selectedValue;
+            return newArray;
+        });
+      };
 
     const submitData = {
         username: user?.username,

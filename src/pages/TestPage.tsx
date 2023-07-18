@@ -2,7 +2,6 @@ import { Button, Container, FormControl, FormControlLabel, FormLabel, Radio, Rad
 import { ChangeEvent, Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeNavigation from "../components/HomeNavigation";
-import { Answers } from "../models/Answers";
 
 export default function TestPage() {
     const questions = ["Česko", "Slovensko", "Polsko", "Rakousko"];
@@ -13,17 +12,21 @@ export default function TestPage() {
         "Bratislava", "Paříž", "Atény", "Vídeň"
     ];
     const rightAnswers = ["Praha", "Bratislava", "Varšava", "Vídeň"];
-    const [userAnswers, setUserAnswers] = useState<Answers>({
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        answer4: ""
-    });
+    const [userAnswers, setUserAnswers] = useState<string[]>([]);
 
     const navigate = useNavigate();
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setUserAnswers((prevAnswers) => ({ ...prevAnswers, [e.target.name]: e.target.value }));
+    const handleArrayChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedValue = event.target.value;
+
+        setUserAnswers((prevAnswers) => {
+            const newArray = [...prevAnswers];
+            while (newArray.length < index + 1) {
+                newArray.push("");
+            }
+            newArray[index] = selectedValue;
+            return newArray;
+        });
     };
 
     const handleSendAnswers = () => navigate("/test-results", {
@@ -41,7 +44,7 @@ export default function TestPage() {
                 {questions.map((question, index) =>
                     <Fragment key={index}>
                         <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 20 }} id="question">{question}</FormLabel>
-                        <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={handleChange} row>
+                        <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={handleArrayChange(index)} row>
                             <FormControlLabel value={possibleAnswers[index * 4]} control={<Radio />} label={possibleAnswers[index * 4]} />
                             <FormControlLabel value={possibleAnswers[(index * 4) + 1]} control={<Radio />} label={possibleAnswers[(index * 4) + 1]} />
                             <FormControlLabel value={possibleAnswers[(index * 4) + 2]} control={<Radio />} label={possibleAnswers[(index * 4) + 2]} />

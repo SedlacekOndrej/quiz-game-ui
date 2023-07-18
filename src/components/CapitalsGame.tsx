@@ -6,7 +6,7 @@ interface CapitalsGameProps {
     states: string[]
     cities: string[]
     timeOut?: boolean
-    handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    handleChange?: (index: number) => (event: ChangeEvent<HTMLInputElement>) => void
     userAnswers?: string[]
     rightAnswers?: string[]
     finished?: boolean
@@ -32,6 +32,14 @@ export default function CapitalsGame(props: CapitalsGameProps) {
         return false;
     };
 
+    const onChangeMethod = (index: number) => () => {
+        if (finished) return undefined;
+        
+        if (handleChange) {
+            return handleChange(index);
+        } else return undefined;
+    };
+
     const getLabel = (answer: string, index: number) => {
         if (!finished) {
             return <Typography sx={{ fontSize: 20 }}>{answer}</Typography>;
@@ -48,7 +56,7 @@ export default function CapitalsGame(props: CapitalsGameProps) {
                 <Fragment key={index}>
                     <FormLabel sx={{ mt: 5, fontWeight: "bold", fontSize: 26 }} id="state">{state}</FormLabel>
 
-                    <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={finished ? undefined : handleChange} row>
+                    <RadioGroup sx={{ mt: 1 }} aria-labelledby="question" name={`answer${index + 1}`} onChange={onChangeMethod(index)} row>
 
                         <FormControlLabel
                             sx={{ color: isRightAnswer(cities[index * 4], index) ? green[600] : null }}

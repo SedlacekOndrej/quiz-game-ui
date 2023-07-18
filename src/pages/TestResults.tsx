@@ -3,13 +3,12 @@ import { green } from "@mui/material/colors";
 import { Fragment, useState } from "react";
 import { useLocation } from "react-router-dom";
 import HomeNavigation from "../components/HomeNavigation";
-import { Answers } from "../models/Answers";
 
 interface LocationState {
     questions: string[]
     possibleAnswers: string[]
     rightAnswers: string[]
-    userAnswers: Answers
+    userAnswers: string[]
 }
 
 export default function TestResults() {
