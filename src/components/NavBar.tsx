@@ -17,29 +17,9 @@ export default function NavBar(props: NavBarProps) {
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const registrationLink = () => {
+    const handleNavigate = (path: string) => () => {
         setOpenSnackbar(false);
-        navigate("/registration");
-    };
-
-    const loginLink = () => {
-        setOpenSnackbar(false);
-        navigate("/login");
-    };
-
-    const leaderboardsLink = () => {
-        setOpenSnackbar(false);
-        navigate("/leaderboards");
-    };
-
-    const accountLink = () => {
-        setOpenSnackbar(false);
-        navigate("/account");
-    };
-
-    const homepageLink = () => {
-        setOpenSnackbar(false);
-        navigate("/");
+        navigate("/" + path);
     };
 
     const logout = () => {
@@ -48,32 +28,26 @@ export default function NavBar(props: NavBarProps) {
         navigate("/");
     };
 
-    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleCloseMenu = () => {
         setAnchorEl(null);
     };
 
-    const toggleDrawer =
-        (open: boolean) =>
-            (event: React.KeyboardEvent | React.MouseEvent) => {
-                if (
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-                ) {
-                    return;
-                }
-                setOpenDrawer(open);
-            };
+    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')) {
+            return;
+        }
+        setOpenDrawer(open);
+    };
 
     const list = () => (
-        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+        <Box sx={{ width: 250 }} onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={homepageLink}>
+                    <ListItemButton onClick={handleNavigate("")}>
                         <ListItemIcon>
                             <Home color="info" />
                         </ListItemIcon>
@@ -81,7 +55,7 @@ export default function NavBar(props: NavBarProps) {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={leaderboardsLink}>
+                    <ListItemButton onClick={handleNavigate("leaderboards")}>
                         <ListItemIcon>
                             <Leaderboard color="warning" />
                         </ListItemIcon>
@@ -93,7 +67,7 @@ export default function NavBar(props: NavBarProps) {
                 <Divider />
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={loginLink}>
+                        <ListItemButton onClick={handleNavigate("login")}>
                             <ListItemIcon>
                                 <Login color="success" />
                             </ListItemIcon>
@@ -101,7 +75,7 @@ export default function NavBar(props: NavBarProps) {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={registrationLink}>
+                        <ListItemButton onClick={handleNavigate("registration")}>
                             <ListItemIcon>
                                 <PersonAdd color="success" />
                             </ListItemIcon>
@@ -121,14 +95,14 @@ export default function NavBar(props: NavBarProps) {
                         <IconButton sx={{ mr: 2 }} size="large" edge="start" color="inherit" onClick={toggleDrawer(true)}>
                             <MenuSharp />
                         </IconButton>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{title}</Typography>
+                        <Typography variant="h6">{title}</Typography>
                         {user && (
                             <Fragment>
-                                <IconButton size="large" onClick={handleMenu} color="inherit">
+                                <IconButton size="large" onClick={handleOpenMenu} color="inherit">
                                     <AccountCircle />
                                 </IconButton>
-                                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} keepMounted>
-                                    <MenuItem onClick={accountLink}><Person sx={{ mr: 1, mb: 1 }} color="info" />{"Můj profil"}</MenuItem>
+                                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu} keepMounted>
+                                    <MenuItem onClick={handleNavigate("account")}><Person sx={{ mr: 1, mb: 1 }} color="info" />{"Můj profil"}</MenuItem>
                                     <MenuItem onClick={logout}><Logout sx={{ mr: 1 }} color="error" />{"Odhlásit"}</MenuItem>
                                 </Menu>
                             </Fragment>

@@ -51,7 +51,7 @@ export default function Homepage() {
 
             {user !== null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />
+                    <img src={process.env.PUBLIC_URL + '/globe256.png'} alt="Logo" />
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Vyber si kategorii"}</Typography>
                     <Button sx={{ mt: 2 }} size="large" onClick={handleCapitalsClick}>{"Hlavní města"}</Button>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>

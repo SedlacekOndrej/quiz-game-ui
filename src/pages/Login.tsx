@@ -1,5 +1,5 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -22,8 +22,7 @@ type Inputs = yup.InferType<typeof schema>;
 
 export default function Login() {
     const { setUser } = useContext(UserContext);
-    const { usernameError, setUsernameError, passwordError, setPasswordError,
-        setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
+    const { setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
@@ -50,13 +49,6 @@ export default function Login() {
         }
     );
 
-    useEffect(() => {
-        if (errors.username) setUsernameError(true);
-        if (!errors.username) setUsernameError(false);
-        if (errors.password) setPasswordError(true);
-        if (!errors.password) setPasswordError(false);
-    }, [errors.username, errors.password, setUsernameError, setPasswordError]);
-
     return (
         <>
             <NavBar title="Přihlášení" />
@@ -68,7 +60,7 @@ export default function Login() {
                         variant="filled"
                         label="Uživatelské jméno"
                         helperText={errors.username?.message}
-                        error={usernameError}
+                        error={errors.username?.message ? true : false}
                         {...register("username")}
                     />
 
@@ -76,7 +68,7 @@ export default function Login() {
                         variant="filled"
                         label="Heslo"
                         helperText={errors.password?.message}
-                        error={passwordError}
+                        error={errors.password?.message ? true : false}
                         type="password"
                         {...register("password")}
                     />

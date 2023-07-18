@@ -1,5 +1,5 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -22,8 +22,7 @@ const schema = yup.object({
 type Inputs = yup.InferType<typeof schema>;
 
 export default function Registration() {
-    const { usernameError, setUsernameError, passwordError, setPasswordError, passwordConfirmError, setPasswordConfirmError, emailError,
-        setEmailError, emailConfirmError, setEmailConfirmError, setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
+    const { setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
@@ -48,20 +47,6 @@ export default function Registration() {
         }
     );
 
-    useEffect(() => {
-        if (errors.username) setUsernameError(true);
-        if (!errors.username) setUsernameError(false);
-        if (errors.password) setPasswordError(true);
-        if (!errors.password) setPasswordError(false);
-        if (errors.passwordConfirm) setPasswordConfirmError(true);
-        if (!errors.passwordConfirm) setPasswordConfirmError(false);
-        if (errors.email) setEmailError(true);
-        if (!errors.email) setEmailError(false);
-        if (errors.emailConfirm) setEmailConfirmError(true);
-        if (!errors.emailConfirm) setEmailConfirmError(false);
-    }, [errors.username, errors.password, errors.passwordConfirm, errors.email, errors.emailConfirm,
-        setUsernameError, setPasswordError, setPasswordConfirmError, setEmailError, setEmailConfirmError]);
-
     const navigate = useNavigate();
 
     return (
@@ -75,7 +60,7 @@ export default function Registration() {
                         variant="filled"
                         label="Uživatelské jméno"
                         helperText={errors.username?.message}
-                        error={usernameError}
+                        error={errors.username?.message ? true : false}
                         {...register("username")}
                     />
 
@@ -83,7 +68,7 @@ export default function Registration() {
                         variant="filled"
                         label="Heslo"
                         helperText={errors.password?.message}
-                        error={passwordError}
+                        error={errors.password?.message ? true : false}
                         type="password"
                         {...register("password")}
                     />
@@ -92,7 +77,7 @@ export default function Registration() {
                         variant="filled"
                         label="Ověření hesla"
                         helperText={errors.passwordConfirm?.message}
-                        error={passwordConfirmError}
+                        error={errors.passwordConfirm?.message ? true : false}
                         type="password"
                         {...register("passwordConfirm")}
                     />
@@ -101,7 +86,7 @@ export default function Registration() {
                         variant="filled"
                         label="Email"
                         helperText={errors.email?.message}
-                        error={emailError}
+                        error={errors.email?.message ? true : false}
                         {...register("email")}
                     />
 
@@ -109,7 +94,7 @@ export default function Registration() {
                         variant="filled"
                         label="Ověření emailu"
                         helperText={errors.emailConfirm?.message}
-                        error={emailConfirmError}
+                        error={errors.emailConfirm?.message ? true : false}
                         {...register("emailConfirm")}
                     />
 

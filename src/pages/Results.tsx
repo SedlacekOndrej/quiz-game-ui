@@ -10,7 +10,7 @@ export default function Results() {
 
     const navigate = useNavigate();
 
-    const gameLink = () => navigate(`/${continent}?type=${gameType}`);
+    const handleTryAgain = () => navigate(`/${continent}?type=${gameType}`);
 
     const continentName = () => {
         switch (continent) {
@@ -18,12 +18,13 @@ export default function Results() {
             case "asia": return "Asie a Oceánie";
             case "america": return "Amerika";
             case "africa": return "Afrika";
+            default: return "";
         }
     };
 
     return (
         <>
-            <NavBar title={"Výsledky - " + continentName()} />
+            <NavBar title={continentName() + " - výsledky"} />
             <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Typography sx={{ mb: 3, fontWeight: "bold", fontSize: 20 }}>{"Počet správných odpovědí: " + score}</Typography>
                 <Typography>{"Odpovědět na otázky jste stihl/a za " + secondsLeft + " sekund."}</Typography>
@@ -36,7 +37,7 @@ export default function Results() {
                     <FlagsGame flags={questions} states={possibleAnswers} userAnswers={userAnswers} rightAnswers={rightAnswers} finished />
                 }
 
-                <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={gameLink}>{"Zkusit znovu"}</Button>
+                <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleTryAgain}>{"Zkusit znovu"}</Button>
                 <HomeNavigation />
             </Container>
         </>

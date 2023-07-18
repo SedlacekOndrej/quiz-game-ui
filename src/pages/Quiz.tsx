@@ -79,7 +79,7 @@ export default function Game() {
             case "america": return "Severní a Jižní Amerika";
             case "asia": return "Asie a Oceánie";
             case "africa": return "Afrika";
-            default: return;
+            default: return "";
         }
     };
 
@@ -104,7 +104,7 @@ export default function Game() {
 
     return (
         <>
-            <NavBar title={"Kvíz - " + continentName()} />
+            <NavBar title={continentName()} />
             {user !== null ? <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
 
                 {gameType === "CAPITALS" &&
