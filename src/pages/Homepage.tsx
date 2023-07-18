@@ -1,4 +1,4 @@
-import { Box, Button, Container, Menu, MenuItem, Typography } from "@mui/material";
+import { Button, Container, Menu, MenuItem, ToggleButton, ToggleButtonGroup, Tooltip, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomSnackbar from "../components/CustomSnackbar";
@@ -9,6 +9,7 @@ export default function Homepage() {
     const { user } = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [gameType, setGameType] = useState<string>("");
+    const [numberOfQuestions, setNumberOfQuestions] = useState<number>(10);
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
 
@@ -22,9 +23,13 @@ export default function Homepage() {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => setAnchorEl(null);
+    const handleCloseMenu = () => setAnchorEl(null);
 
-    const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}`);
+    const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}` + numberOfQuestions && `&questions=${numberOfQuestions}`);
+
+    const handleChange = (event: React.MouseEvent<HTMLElement>, number: number) => {
+        setNumberOfQuestions(number);
+    };
 
     return (
         <>
@@ -52,9 +57,12 @@ export default function Homepage() {
             {user !== null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <img src={process.env.PUBLIC_URL + '/globe256.png'} alt="Logo" />
+
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Vyber si kategorii"}</Typography>
                     <Button sx={{ mt: 2 }} size="large" onClick={handleCapitalsClick}>{"Hlavní města"}</Button>
-                    <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>
+                    <Button sx={{ mb: 5 }} size="large" onClick={handleFlagsClick}>{"Vlajky"}</Button>
+
+                    <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu} onClick={handleCloseMenu}>
                         <MenuItem onClick={gameLink("europe")}>
                             <Typography>{"Evropa"}</Typography>
                         </MenuItem>
@@ -68,9 +76,15 @@ export default function Homepage() {
                             <Typography>{"Afrika"}</Typography>
                         </MenuItem>
                     </Menu>
-                    <Box sx={{ mt: 2 }}>
-                        <Button size="large" onClick={handleFlagsClick}>{"Vlajky"}</Button>
-                    </Box>
+
+                    <Typography sx={{ mb: 2, fontWeight: "bold", fontSize: 25 }}>{"Počet otázek"}</Typography>
+                    <ToggleButtonGroup sx={{ mb: 2 }} value={numberOfQuestions} onChange={handleChange} size="large" color="primary" exclusive>
+                        <ToggleButton value={10} disabled={numberOfQuestions === 10}>{"10"}</ToggleButton>
+                        {user.level < 5 && <Tooltip title="Dostupné od úrovně 5" placement="right">
+                            <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>
+                        </Tooltip>}
+                    </ToggleButtonGroup>
+                    
                 </Container>}
             <CustomSnackbar />
         </>
