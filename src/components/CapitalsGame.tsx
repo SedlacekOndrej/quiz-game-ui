@@ -16,10 +16,10 @@ export default function CapitalsGame(props: CapitalsGameProps) {
     const { states, cities, timeOut, handleChange, userAnswers, rightAnswers, finished } = props;
 
     const isChecked = (answer: string, index: number) => {
-            if (userAnswers) {
-                const userAnswerValues = Object.values(userAnswers);
-                return userAnswerValues[index] === answer;
-            }
+        if (userAnswers) {
+            const userAnswerValues = Object.values(userAnswers);
+            return userAnswerValues[index] === answer;
+        }
         return false;
     };
 
@@ -32,12 +32,12 @@ export default function CapitalsGame(props: CapitalsGameProps) {
         return false;
     };
 
-    const onChangeMethod = (index: number) => () => {
-        if (finished) return undefined;
-        
+    const onChangeMethod = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+        if (finished) return;
+
         if (handleChange) {
-            return handleChange(index);
-        } else return undefined;
+            return handleChange(index)(event);
+        }
     };
 
     const getLabel = (answer: string, index: number) => {

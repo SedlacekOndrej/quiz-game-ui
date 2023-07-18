@@ -95,7 +95,7 @@ export default function NavBar(props: NavBarProps) {
                         <IconButton sx={{ mr: 2 }} size="large" edge="start" color="inherit" onClick={toggleDrawer(true)}>
                             <MenuSharp />
                         </IconButton>
-                        <Typography variant="h6">{title}</Typography>
+                        <Typography sx={{ flexGrow: 1 }} variant="h6">{title}</Typography>
                         {user && (
                             <Fragment>
                                 <IconButton size="large" onClick={handleOpenMenu} color="inherit">

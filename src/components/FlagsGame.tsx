@@ -17,8 +17,7 @@ export default function FlagsGame(props: FlagsGameProps) {
 
     const isChecked = (answer: string, index: number) => {
         if (userAnswers) {
-            const userAnswerValues = Object.values(userAnswers);
-            return userAnswerValues[index] === answer;
+            return userAnswers[index] === answer;
         }
         return false;
     };
@@ -30,12 +29,12 @@ export default function FlagsGame(props: FlagsGameProps) {
         return false;
     };
 
-    const onChangeMethod = (index: number) => () => {
-        if (finished) return undefined;
-        
+    const onChangeMethod = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+        if (finished) return;
+
         if (handleChange) {
-            return handleChange(index);
-        } else return undefined;
+            return handleChange(index)(event);
+        }
     };
 
     const getLabel = (answer: string, index: number) => {

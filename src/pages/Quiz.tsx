@@ -75,15 +75,13 @@ export default function Game() {
 
     const color = timeOut ? "error" : "primary";
 
-    const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
-        const selectedValue = event.target.value;
-        
+    const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {     
         setUserAnswers((prevAnswers) => {
             const newArray = [...prevAnswers];
             while (newArray.length < index + 1) {
                 newArray.push("");
             }
-            newArray[index] = selectedValue;
+            newArray[index] = event.target.value;
             return newArray;
         });
       };

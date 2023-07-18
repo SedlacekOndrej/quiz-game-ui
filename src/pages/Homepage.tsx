@@ -25,7 +25,7 @@ export default function Homepage() {
 
     const handleCloseMenu = () => setAnchorEl(null);
 
-    const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}` + numberOfQuestions && `&questions=${numberOfQuestions}`);
+    const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}&questions=${numberOfQuestions}`);
 
     const handleChange = (event: React.MouseEvent<HTMLElement>, number: number) => {
         setNumberOfQuestions(number);
@@ -78,13 +78,15 @@ export default function Homepage() {
                     </Menu>
 
                     <Typography sx={{ mb: 2, fontWeight: "bold", fontSize: 25 }}>{"Počet otázek"}</Typography>
-                    <ToggleButtonGroup sx={{ mb: 2 }} value={numberOfQuestions} onChange={handleChange} size="large" color="primary" exclusive>
+                    {user.level >= 5 && <ToggleButtonGroup sx={{ mb: 2 }} value={numberOfQuestions} onChange={handleChange} size="large" color="primary" exclusive>
                         <ToggleButton value={10} disabled={numberOfQuestions === 10}>{"10"}</ToggleButton>
-                        {user.level < 5 && <Tooltip title="Dostupné od úrovně 5" placement="right">
+                        {user.level  < 5 ? <Tooltip title="Dostupné od úrovně 5" placement="right">
                             <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>
-                        </Tooltip>}
-                    </ToggleButtonGroup>
-                    
+                            </Tooltip>
+                            :
+                            <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>}
+                    </ToggleButtonGroup>}
+
                 </Container>}
             <CustomSnackbar />
         </>
