@@ -25,9 +25,10 @@ export default function Game() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const type = queryParams.get('type');
+    const type = queryParams.get("type");
+    const numberOfQuestions = queryParams.get("questions");
 
-    const { data = {} as Questions } = useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + "?type=" + type, signal));
+    const { data = {} as Questions } = useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + `?type=${type}&questions=${numberOfQuestions}`, signal));
 
     const { gameType, questions, possibleAnswers } = data;
 
@@ -39,7 +40,7 @@ export default function Game() {
                     state: {
                         score: score,
                         continent: params.continent,
-                        secondsLeft: 30 - timer,
+                        secondsLeft: numberOfQuestions === "20" ? 60 - timer : 30 - timer,
                         gameType: gameType,
                         questions: questions,
                         possibleAnswers: possibleAnswers,
@@ -91,7 +92,7 @@ export default function Game() {
         continent: params.continent,
         questions: questions,
         answers: userAnswers,
-        gameTime: 30 - timer,
+        gameTime: numberOfQuestions === "20" ? 60 - timer : 30 - timer,
         gameType: gameType
     };
 
