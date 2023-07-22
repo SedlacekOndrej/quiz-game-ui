@@ -1,4 +1,4 @@
-import { AccountCircle, Home, Leaderboard, Login, Logout, MenuSharp, Person, PersonAdd } from "@mui/icons-material";
+import { AccountCircle, Home, Leaderboard, Login, Logout, MenuBook, MenuSharp, Person, PersonAdd } from "@mui/icons-material";
 import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -60,6 +60,14 @@ export default function NavBar(props: NavBarProps) {
                             <Leaderboard color="warning" />
                         </ListItemIcon>
                         <ListItemText primary={"Žebříček"} />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton onClick={handleNavigate("encyclopedia")}>
+                        <ListItemIcon>
+                            <MenuBook color="success" />
+                        </ListItemIcon>
+                        <ListItemText primary={"Encyklopedie"} />
                     </ListItemButton>
                 </ListItem>
             </List>

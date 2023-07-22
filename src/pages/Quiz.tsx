@@ -19,6 +19,7 @@ export default function Game() {
     const { user } = useContext(UserContext);
     const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
     const [timer, setTimer] = useState<number>(30);
+    const [secondsAtStart, setSecondsAtStart] = useState<number>(30);
     const [userAnswers, setUserAnswers] = useState<string[]>([]);
 
     const params = useParams();
@@ -40,7 +41,7 @@ export default function Game() {
                     state: {
                         score: score,
                         continent: params.continent,
-                        secondsLeft: numberOfQuestions === "20" ? 60 - timer : 30 - timer,
+                        secondsLeft: secondsAtStart - timer,
                         gameType: gameType,
                         questions: questions,
                         possibleAnswers: possibleAnswers,
@@ -59,7 +60,22 @@ export default function Game() {
     );
 
     useEffect(() => {
-        timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
+        if (numberOfQuestions === "20") {
+            setTimer(60);
+            setSecondsAtStart(60);
+        }
+    }, [numberOfQuestions]);
+
+    useEffect(() => {
+        let timerId: NodeJS.Timeout | null = null;
+        if (timer > 0) {
+            timerId = setTimeout(() => setTimer(timer - 1), 1000);
+        }
+        return () => {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+        };
     }, [timer]);
 
     const continentName = () => {
@@ -76,7 +92,7 @@ export default function Game() {
 
     const color = timeOut ? "error" : "primary";
 
-    const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {     
+    const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
         setUserAnswers((prevAnswers) => {
             const newArray = [...prevAnswers];
             while (newArray.length < index + 1) {
@@ -85,14 +101,14 @@ export default function Game() {
             newArray[index] = event.target.value;
             return newArray;
         });
-      };
+    };
 
     const submitData = {
         username: user?.username,
         continent: params.continent,
         questions: questions,
         answers: userAnswers,
-        gameTime: numberOfQuestions === "20" ? 60 - timer : 30 - timer,
+        gameTime: secondsAtStart - timer,
         gameType: gameType
     };
 

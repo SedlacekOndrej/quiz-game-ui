@@ -12,6 +12,7 @@ import Quiz from './pages/Quiz';
 import Results from './pages/Results';
 import TestPage from './pages/TestPage';
 import TestResults from './pages/TestResults';
+import EncyclopediaPage from './pages/Encyclopedia';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path='/account' element={<Account />} />
                 <Route path='/:continent' element={<Quiz />} />
                 <Route path='/results' element={<Results />} />
+                <Route path='/encyclopedia' element={<EncyclopediaPage />} />
                 <Route path='/test-page' element={<TestPage />} />
                 <Route path='/test-results' element={<TestResults />} />
               </Routes>

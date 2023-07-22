@@ -36,11 +36,20 @@ export default function AllGamesHistory() {
         });
     };
 
+    const getContinentName = (continent: string) => {
+        switch (continent) {
+            case "europe": return "Evropa";
+            case "asia": return "Asie a Oceánie";
+            case "america": return "Amerika";
+            case "africa": return "Afrika";
+        }
+    };
+
     return (
         <>
             <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
 
-            <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+            <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
                 <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her"}</DialogTitle>
 
                 <DialogContent>
@@ -50,6 +59,7 @@ export default function AllGamesHistory() {
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }}>{"Datum"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Uživatel"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Varianta"}</TableCell>
+                                <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Kontinent"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Skóre"}</TableCell>
                                 <TableCell sx={{ color: "white", fontSize: 20, fontWeight: "bold" }} align="right">{"Čas"}</TableCell>
                                 <TableCell align="right"></TableCell>
@@ -61,6 +71,7 @@ export default function AllGamesHistory() {
                                     <TableCell sx={{ fontSize: 16 }}>{moment(game.createdDate).format("DD. MM. YYYY, HH:mm")}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.username}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.gameType === "FLAGS" ? "Vlajky" : "Hlavní města"}</TableCell>
+                                    <TableCell sx={{ fontSize: 16 }} align="right">{getContinentName(game.continentName)}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.score}</TableCell>
                                     <TableCell sx={{ fontSize: 16 }} align="right">{game.gameTime + " s"}</TableCell>
                                     <TableCell sx={{ fontSize: 16, textDecoration: "underline", cursor: "pointer" }} align="right" onClick={resultsLink(game)}>{"Zobrazit detaily"}</TableCell>

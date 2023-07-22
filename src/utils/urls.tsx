@@ -7,5 +7,6 @@ export const urls = {
     user: baseUrl + "/user/",
     questions: baseUrl + "/game/",
     submit: baseUrl + "/game/submit",
-    history: baseUrl + "/game/history"
+    history: baseUrl + "/game/history",
+    encyclopedia: baseUrl + "/game/encyclopedia"
 };
