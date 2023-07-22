@@ -59,8 +59,8 @@ export default function Homepage() {
                     <img src={process.env.PUBLIC_URL + '/globe256.png'} alt="Logo" />
 
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Vyber si kategorii"}</Typography>
-                    <Button sx={{ mt: 2 }} size="large" onClick={handleCapitalsClick}>{"Hlavní města"}</Button>
-                    <Button sx={{ mb: 5 }} size="large" onClick={handleFlagsClick}>{"Vlajky"}</Button>
+                    <Button size="large" onClick={handleCapitalsClick}>{"Hlavní města"}</Button>
+                    <Button sx={{ mb: 3 }} size="large" onClick={handleFlagsClick}>{"Vlajky"}</Button>
 
                     <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu} onClick={handleCloseMenu}>
                         <MenuItem onClick={gameLink("europe")}>
