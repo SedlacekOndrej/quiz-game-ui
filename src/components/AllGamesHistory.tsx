@@ -38,12 +38,14 @@ export default function AllGamesHistory() {
 
     const getContinentName = (continent: string) => {
         switch (continent) {
-            case "europe": return "Evropa";
-            case "asia": return "Asie a Oceánie";
-            case "america": return "Amerika";
-            case "africa": return "Afrika";
+            case "EUROPE": return "Evropa";
+            case "ASIA": return "Asie a Oceánie";
+            case "AMERICA": return "Amerika";
+            case "AFRICA": return "Afrika";
         }
     };
+
+    console.log(games);
 
     return (
         <>
