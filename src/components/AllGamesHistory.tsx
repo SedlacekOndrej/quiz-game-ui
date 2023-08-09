@@ -49,7 +49,7 @@ export default function AllGamesHistory() {
 
     return (
         <>
-            <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleOpen}>{"Historie her"}</Button>
+            <Button sx={{ mt: 3 }} type="button" variant="contained" size="large" onClick={handleOpen}>{"Historie her"}</Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
                 <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her"}</DialogTitle>

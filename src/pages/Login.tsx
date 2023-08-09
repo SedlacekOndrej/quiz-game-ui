@@ -60,7 +60,7 @@ export default function Login() {
                         variant="filled"
                         label="Uživatelské jméno"
                         helperText={errors.username?.message}
-                        error={errors.username?.message ? true : false}
+                        error={!!errors.username?.message}
                         {...register("username")}
                     />
 
@@ -68,12 +68,12 @@ export default function Login() {
                         variant="filled"
                         label="Heslo"
                         helperText={errors.password?.message}
-                        error={errors.password?.message ? true : false}
+                        error={!!errors.password?.message}
                         type="password"
                         {...register("password")}
                     />
 
-                    <Button sx={{ mt: 3 }} type="submit" variant="contained">{"Přihlásit"}</Button>
+                    <Button sx={{ mt: 3 }} type="submit" variant="contained" size="large">{"Přihlásit"}</Button>
 
                     <HomeNavigation />
                 </Container>

@@ -11,6 +11,7 @@ import Account from './pages/Account';
 import Quiz from './pages/Quiz';
 import Results from './pages/Results';
 import EncyclopediaPage from './pages/Encyclopedia';
+import EditAccount from './pages/EditAccount';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path='/:continent' element={<Quiz />} />
                 <Route path='/results' element={<Results />} />
                 <Route path='/encyclopedia' element={<EncyclopediaPage />} />
+                <Route path='/account/edit' element={<EditAccount />} />
               </Routes>
             </BrowserRouter>
           </UserProvider>

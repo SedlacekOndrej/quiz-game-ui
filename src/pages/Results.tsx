@@ -37,7 +37,7 @@ export default function Results() {
                     <FlagsGame flags={questions} states={possibleAnswers} userAnswers={userAnswers} rightAnswers={rightAnswers} finished />
                 }
 
-                <Button sx={{ mt: 3 }} type="button" variant="contained" onClick={handleTryAgain}>{"Zkusit znovu"}</Button>
+                <Button sx={{ mt: 3 }} type="button" variant="contained" size="large" onClick={handleTryAgain}>{"Zkusit znovu"}</Button>
                 <HomeNavigation />
             </Container>
         </>

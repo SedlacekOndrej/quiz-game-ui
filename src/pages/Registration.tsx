@@ -60,7 +60,7 @@ export default function Registration() {
                         variant="filled"
                         label="Uživatelské jméno"
                         helperText={errors.username?.message}
-                        error={errors.username?.message ? true : false}
+                        error={!!errors.username?.message}
                         {...register("username")}
                     />
 
@@ -68,7 +68,7 @@ export default function Registration() {
                         variant="filled"
                         label="Heslo"
                         helperText={errors.password?.message}
-                        error={errors.password?.message ? true : false}
+                        error={!!errors.password?.message}
                         type="password"
                         {...register("password")}
                     />
@@ -77,7 +77,7 @@ export default function Registration() {
                         variant="filled"
                         label="Ověření hesla"
                         helperText={errors.passwordConfirm?.message}
-                        error={errors.passwordConfirm?.message ? true : false}
+                        error={!!errors.passwordConfirm?.message}
                         type="password"
                         {...register("passwordConfirm")}
                     />
@@ -86,7 +86,7 @@ export default function Registration() {
                         variant="filled"
                         label="Email"
                         helperText={errors.email?.message}
-                        error={errors.email?.message ? true : false}
+                        error={!!errors.email?.message}
                         {...register("email")}
                     />
 
@@ -94,11 +94,11 @@ export default function Registration() {
                         variant="filled"
                         label="Ověření emailu"
                         helperText={errors.emailConfirm?.message}
-                        error={errors.emailConfirm?.message ? true : false}
+                        error={!!errors.emailConfirm?.message}
                         {...register("emailConfirm")}
                     />
 
-                    <Button sx={{ mt: 3 }} type="submit" variant="contained">{"Registrovat"}</Button>
+                    <Button sx={{ mt: 3 }} type="submit" variant="contained" size="large">{"Registrovat"}</Button>
                     <HomeNavigation />
                 </Container>
             </form>

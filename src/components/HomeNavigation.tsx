@@ -15,7 +15,7 @@ export default function HomeNavigation() {
 
     return (
         <>
-            <Button sx={{ m: 3 }} type="button" variant="outlined" onClick={homepageLink}>{"Hlavní stránka"}</Button>
+            <Button sx={{ m: 3 }} type="button" variant="outlined" size="large" onClick={homepageLink}>{"Hlavní stránka"}</Button>
             <CustomSnackbar />
         </>
     );
