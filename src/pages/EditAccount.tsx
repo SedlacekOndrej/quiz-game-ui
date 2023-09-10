@@ -5,11 +5,13 @@ import EditPasswordDialog from "../components/EditPasswordDialog";
 import EditUsernameDialog from "../components/EditUsernameDialog";
 import HomeNavigation from "../components/HomeNavigation";
 import NavBar from "../components/NavBar";
+import DeleteUserDialog from "../components/DeleteUserDialog";
 
 export default function EditAccount() {
     const [openEditUsername, setOpenEditUsername] = useState<boolean>(false);
     const [openEditPassword, setOpenEditPassword] = useState<boolean>(false);
     const [openEditEmail, setOpenEditEmail] = useState<boolean>(false);
+    const [openConfirmDelete, setOpenConfirmDelete] = useState<boolean>(false);
 
     const handleOpenEditUsername = () => setOpenEditUsername(true);
 
@@ -23,6 +25,10 @@ export default function EditAccount() {
 
     const handleCloseEditEmail = () => setOpenEditEmail(false);
 
+    const handleOpenConfirm = () => setOpenConfirmDelete(true);
+
+    const handleCloseConfirm = () => setOpenConfirmDelete(false);
+
     return (
         <>
             <NavBar title="Upravit profil" />
@@ -32,7 +38,7 @@ export default function EditAccount() {
                 <Button sx={{ mb: 2 }} type="button" size="large" onClick={handleOpenEditUsername}>{"Změnit uživatelské jméno"}</Button>
                 <Button sx={{ mb: 2 }} type="button" size="large" onClick={handleOpenEditPassword}>{"Změnit heslo"}</Button>
                 <Button sx={{ mb: 2 }} type="button" size="large" onClick={handleOpenEditEmail}>{"Změnit email"}</Button>
-                <Button sx={{ mb: 2 }} type="button" size="large" color="error">{"Smazat účet"}</Button>
+                <Button sx={{ mb: 2 }} type="button" size="large" color="error" onClick={handleOpenConfirm}>{"Smazat účet"}</Button>
 
                 <HomeNavigation />
             </Container>
@@ -42,6 +48,8 @@ export default function EditAccount() {
             <EditPasswordDialog open={openEditPassword} close={handleCloseEditPassword} />
 
             <EditEmailDialog open={openEditEmail} close={handleCloseEditEmail} />
+
+            <DeleteUserDialog open={openConfirmDelete} close={handleCloseConfirm} />
         </>
     );
 }

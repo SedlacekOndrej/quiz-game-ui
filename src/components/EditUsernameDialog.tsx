@@ -22,27 +22,32 @@ interface EditUsernameDialogProps {
     close: () => void
 }
 
+interface SubmitData {
+    password: string
+    user: User
+}
+
 export default function EditUsernameDialog(props: EditUsernameDialogProps) {
     const { open, close } = props;
     const { user } = useContext(UserContext);
-    const { setSeverity, setResponseMessage, setOpenSnackbar} = useContext(QuizContext);
+    const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data);
-        close();
-    }
+    const onSubmit: SubmitHandler<Inputs> = (data) => handleChangeUsername(data);
 
-    const { mutate } = useMutation((data: User) => fetchPut(urls.user + user?.id, data),
+    const { mutate } = useMutation((data: SubmitData) => fetchPut(urls.user + user?.id, data),
         {
-            onSuccess: (response: { message: string}) => {
+            onSuccess: (response: { message: string }) => {
                 const { message } = response;
                 setSeverity("success");
                 setResponseMessage(message);
                 setOpenSnackbar(true);
+                setValue("password", "");
+                setValue("username", "");
+                close();
             },
             onError: (message: string) => {
                 setSeverity("error");
@@ -51,6 +56,16 @@ export default function EditUsernameDialog(props: EditUsernameDialogProps) {
             }
         }
     );
+
+    const handleChangeUsername = (data: Inputs) => {
+        if (user) {
+            const updatedData = {
+                password: data.password,
+                user: { ...user, username: data.username }
+            };
+            mutate(updatedData);
+        }
+    };
 
     return (
         <Dialog open={open} onClose={close}>
@@ -66,6 +81,7 @@ export default function EditUsernameDialog(props: EditUsernameDialogProps) {
                         label="Heslo"
                         helperText={errors.password?.message}
                         error={!!errors.password?.message}
+                        type="password"
                         {...register("password")}
                     />
 
@@ -79,9 +95,9 @@ export default function EditUsernameDialog(props: EditUsernameDialogProps) {
 
                 </DialogContent>
 
-                <Button sx={{ m: 1, float: "right"}} type="submit" size="large">{"Změnit"}</Button>
-                <Button sx={{ m: 1, float: "right"}} type="button" color="error" size="large" onClick={close}>{"Zavřít"}</Button>
-                
+                <Button sx={{ m: 1, float: "right" }} type="submit" size="large">{"Změnit"}</Button>
+                <Button sx={{ m: 1, float: "right" }} type="button" color="error" size="large" onClick={close}>{"Zavřít"}</Button>
+
             </form>
         </Dialog>
     );

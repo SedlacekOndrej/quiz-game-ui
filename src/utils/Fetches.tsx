@@ -45,8 +45,8 @@ export const fetchPut = async (url: string, data: unknown): Promise<any> => {
     return response;
 };
 
-export const fetchDelete = async (url: string): Promise<Response> => {
-    const initReq: RequestInit = await getRequestInit("DELETE");
+export const fetchDelete = async (url: string, data: unknown): Promise<Response> => {
+    const initReq: RequestInit = await getRequestInit("DELETE", data);
     const response: Response = await fetch(url, initReq);
     if (!response.ok)
         throw await getQueryErrorMessage(response);

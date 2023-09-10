@@ -21,7 +21,6 @@ export default function Game() {
     const [timer, setTimer] = useState<number>(30);
     const [secondsAtStart, setSecondsAtStart] = useState<number>(30);
     const [userAnswers, setUserAnswers] = useState<string[]>([]);
-
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -127,7 +126,7 @@ export default function Game() {
                     <FlagsGame flags={questions} states={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
                 }
 
-                <Button sx={{ mt: 5 }} type="button" variant="contained" size="large" onClick={handleSendAnswers}>{"Odeslat odpovědi"}</Button>
+                <Button sx={{ mt: 5 }} type="button" variant="contained" onClick={handleSendAnswers}>{"Odeslat odpovědi"}</Button>
                 <HomeNavigation />
 
                 <Grid container sx={{ position: 'fixed', bottom: 30, right: 30, justifyContent: "end", zIndex: -1 }}>

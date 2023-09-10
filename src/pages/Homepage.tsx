@@ -1,4 +1,4 @@
-import { Button, Container, Menu, MenuItem, ToggleButton, ToggleButtonGroup, Tooltip, Typography } from "@mui/material";
+import { Button, Container, Menu, MenuItem, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomSnackbar from "../components/CustomSnackbar";
@@ -78,14 +78,10 @@ export default function Homepage() {
                     </Menu>
 
                     <Typography sx={{ mb: 2, fontWeight: "bold", fontSize: 25 }}>{"Počet otázek"}</Typography>
-                    {user.level >= 5 && <ToggleButtonGroup sx={{ mb: 2 }} value={numberOfQuestions} onChange={handleChange} size="large" color="primary" exclusive>
+                    <ToggleButtonGroup sx={{ mb: 2 }} value={numberOfQuestions} onChange={handleChange} size="large" color="primary" exclusive>
                         <ToggleButton value={10} disabled={numberOfQuestions === 10}>{"10"}</ToggleButton>
-                        {user.level  < 5 ? <Tooltip title="Dostupné od úrovně 5" placement="right">
-                            <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>
-                            </Tooltip>
-                            :
-                            <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>}
-                    </ToggleButtonGroup>}
+                        <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>
+                    </ToggleButtonGroup>
 
                 </Container>}
             <CustomSnackbar />

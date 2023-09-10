@@ -1,4 +1,4 @@
-import { AccountCircle, Home, Leaderboard, Login, Logout, MenuBook, MenuSharp, Person, PersonAdd } from "@mui/icons-material";
+import { AccountCircle, Edit, Home, Leaderboard, Login, Logout, MenuBook, MenuSharp, Person, PersonAdd } from "@mui/icons-material";
 import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -110,7 +110,8 @@ export default function NavBar(props: NavBarProps) {
                                     <AccountCircle />
                                 </IconButton>
                                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu} keepMounted>
-                                    <MenuItem onClick={handleNavigate("account")}><Person sx={{ mr: 1, mb: 1 }} color="info" />{"Můj profil"}</MenuItem>
+                                    <MenuItem onClick={handleNavigate("account")}><Person sx={{ mr: 1, mb: 1 }} color="success" />{"Můj profil"}</MenuItem>
+                                    <MenuItem onClick={handleNavigate("account/edit")}><Edit sx={{ mr: 1, mb: 1 }} color="info" />{"Upravit profil"}</MenuItem>
                                     <MenuItem onClick={logout}><Logout sx={{ mr: 1 }} color="error" />{"Odhlásit"}</MenuItem>
                                 </Menu>
                             </Fragment>

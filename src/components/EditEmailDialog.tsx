@@ -19,12 +19,15 @@ interface EditEmailDialogProps {
 export default function EditEmailDialog(props: EditEmailDialogProps) {
     const { open, close } = props;
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
     });
 
     const onSubmit: SubmitHandler<Inputs> = data => {
         console.log(data);
+        setValue("password", "");
+        setValue("email", "");
+        setValue("emailConfirm", "");
         close();
     }
 

@@ -19,12 +19,15 @@ interface EditPasswordDialogProps {
 export default function EditPasswordDialog(props: EditPasswordDialogProps) {
     const { open, close } = props;
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
     });
 
     const onSubmit: SubmitHandler<Inputs> = data => {
         console.log(data);
+        setValue("password", "");
+        setValue("newPassword", "");
+        setValue("newPasswordConfirm", "");
         close();
     }
 
@@ -42,7 +45,9 @@ export default function EditPasswordDialog(props: EditPasswordDialogProps) {
                         label="Heslo"
                         helperText={errors.password?.message}
                         error={!!errors.password?.message}
+                        type="password"
                         {...register("password")}
+                        
                     />
 
                     <TextField
@@ -51,6 +56,7 @@ export default function EditPasswordDialog(props: EditPasswordDialogProps) {
                         label="Nové heslo"
                         helperText={errors.newPassword?.message}
                         error={!!errors.newPassword?.message}
+                        type="password"
                         {...register("newPassword")}
                     />
 
@@ -59,6 +65,7 @@ export default function EditPasswordDialog(props: EditPasswordDialogProps) {
                         label="Ověření nového hesla"
                         helperText={errors.newPasswordConfirm?.message}
                         error={!!errors.newPasswordConfirm?.message}
+                        type="password"
                         {...register("newPasswordConfirm")}
                     />
 
