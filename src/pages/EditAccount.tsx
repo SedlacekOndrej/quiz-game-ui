@@ -35,10 +35,10 @@ export default function EditAccount() {
 
             <Container sx={{ mt: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
 
-                <Button sx={{ mb: 2 }} type="button" size="large" onClick={handleOpenEditUsername}>{"Změnit uživatelské jméno"}</Button>
-                <Button sx={{ mb: 2 }} type="button" size="large" onClick={handleOpenEditPassword}>{"Změnit heslo"}</Button>
-                <Button sx={{ mb: 2 }} type="button" size="large" onClick={handleOpenEditEmail}>{"Změnit email"}</Button>
-                <Button sx={{ mb: 2 }} type="button" size="large" color="error" onClick={handleOpenConfirm}>{"Smazat účet"}</Button>
+                <Button sx={{ mb: 2 }} size="large" onClick={handleOpenEditUsername}>{"Změnit uživatelské jméno"}</Button>
+                <Button sx={{ mb: 2 }} size="large" onClick={handleOpenEditPassword}>{"Změnit heslo"}</Button>
+                <Button sx={{ mb: 2 }} size="large" onClick={handleOpenEditEmail}>{"Změnit email"}</Button>
+                <Button sx={{ mb: 2 }} size="large" color="error" onClick={handleOpenConfirm}>{"Smazat účet"}</Button>
 
                 <HomeNavigation />
             </Container>

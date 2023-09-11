@@ -1,7 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Dialog, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import * as yup from "yup";
+import { EditSubmitData } from "../models/EditSubmitData";
+import { fetchPut } from "../utils/Fetches";
+import { urls } from "../utils/urls";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { QuizContext } from "../contexts/QuizContext";
 
 const schema = yup.object({
     password: yup.string().required("Povinné pole"),
@@ -18,18 +25,42 @@ interface EditEmailDialogProps {
 
 export default function EditEmailDialog(props: EditEmailDialogProps) {
     const { open, close } = props;
+    const { user } = useContext(UserContext);
+    const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
     });
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data);
-        setValue("password", "");
-        setValue("email", "");
-        setValue("emailConfirm", "");
-        close();
-    }
+        if (user) {
+            const updatedData = {
+                password: data.password,
+                user: { ...user, email: data.email }
+            };
+            mutate(updatedData);
+        }
+    };
+
+    const { mutate } = useMutation((data: EditSubmitData) => fetchPut(urls.user + user?.id, data),
+        {
+            onSuccess: (response: { message: string }) => {
+                const { message } = response;
+                setSeverity("success");
+                setResponseMessage(message);
+                setOpenSnackbar(true);
+                setValue("password", "");
+                setValue("email", "");
+                setValue("emailConfirm", "");
+                close();
+            },
+            onError: (message: string) => {
+                setSeverity("error");
+                setResponseMessage(message);
+                setOpenSnackbar(true);
+            }
+        }
+    );
 
     return (
         <Dialog open={open} onClose={close}>
@@ -68,7 +99,7 @@ export default function EditEmailDialog(props: EditEmailDialogProps) {
                 </DialogContent>
 
                 <Button sx={{ m: 1, float: "right" }} type="submit" size="large">{"Změnit"}</Button>
-                <Button sx={{ m: 1, float: "right" }} type="button" color="error" size="large" onClick={close}>{"Zavřít"}</Button>
+                <Button sx={{ m: 1, float: "right" }} color="error" size="large" onClick={close}>{"Zavřít"}</Button>
 
             </form>
         </Dialog>

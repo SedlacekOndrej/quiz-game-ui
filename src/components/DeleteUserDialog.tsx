@@ -2,6 +2,13 @@ import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } fro
 import * as yup from "yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "react-query";
+import { fetchDelete } from "../utils/Fetches";
+import { urls } from "../utils/urls";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { QuizContext } from "../contexts/QuizContext";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
     password: yup.string().required("Povinné pole"),
@@ -16,16 +23,32 @@ interface DeleteUserProps {
 
 export default function DeleteUserDialog(props: DeleteUserProps) {
     const { open, close } = props;
+    const { user, setUser } = useContext(UserContext);
+    const { setSeverity, setResponseMessage, setOpenSnackbar } = useContext(QuizContext);
+    const navigate = useNavigate();
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>({
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data);
-        setValue("password", "");
-        close();
-    }
+    const onSubmit: SubmitHandler<Inputs> = () => mutate();
+
+    const { mutate } = useMutation(() => fetchDelete(urls.user + user?.id + "?password=" + getValues("password")),
+    {
+        onSuccess: () => {
+            setSeverity("success");
+            setResponseMessage("Uživatel " + user?.username + " byl úspěšně smazán!");
+            setOpenSnackbar(true);
+            setUser(null);
+            navigate("/");
+            close();
+        },
+        onError: (error: string) => {
+            setSeverity("error");
+            setResponseMessage(error);
+            setOpenSnackbar(true);
+        }
+    });
 
     return (
         <Dialog open={open} onClose={close}>

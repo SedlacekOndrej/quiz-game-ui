@@ -45,11 +45,9 @@ export default function AllGamesHistory() {
         }
     };
 
-    console.log(games);
-
     return (
         <>
-            <Button sx={{ mt: 3 }} type="button" variant="contained" size="large" onClick={handleOpen}>{"Historie her"}</Button>
+            <Button sx={{ mt: 3 }} variant="contained" size="large" onClick={handleOpen}>{"Historie her"}</Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth>
                 <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her"}</DialogTitle>
@@ -84,7 +82,7 @@ export default function AllGamesHistory() {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button type="button" size="large" onClick={handleClose}>{"Zavřít"}</Button>
+                    <Button size="large" onClick={handleClose}>{"Zavřít"}</Button>
                 </DialogActions>
             </Dialog>
         </>

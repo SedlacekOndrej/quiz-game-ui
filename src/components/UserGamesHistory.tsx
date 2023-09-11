@@ -53,7 +53,7 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
 
     return (
         <>
-            <Button sx={{ mt: 3 }} type="button" variant="contained" size="large" onClick={handleOpen}>{"Historie her"}</Button>
+            <Button sx={{ mt: 3 }} variant="contained" size="large" onClick={handleOpen}>{"Historie her"}</Button>
 
             <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
                 <DialogTitle sx={{ display: "flex", flexDirection: "column", alignItems: "center", fontWeight: "bold" }}>{"Historie her uživatele " + user?.username}</DialogTitle>
@@ -86,7 +86,7 @@ export default function UserGamesHistory(props: UserGamesHistoryProps) {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button type="button" size="large" onClick={handleClose}>{"Zavřít"}</Button>
+                    <Button size="large" onClick={handleClose}>{"Zavřít"}</Button>
                 </DialogActions>
             </Dialog>
         </>

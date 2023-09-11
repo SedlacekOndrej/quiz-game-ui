@@ -6,9 +6,9 @@ import { useMutation } from "react-query";
 import * as yup from "yup";
 import { QuizContext } from "../contexts/QuizContext";
 import { UserContext } from "../contexts/UserContext";
-import { User } from "../models/User";
 import { fetchPut } from "../utils/Fetches";
 import { urls } from "../utils/urls";
+import { EditSubmitData } from "../models/EditSubmitData";
 
 const schema = yup.object({
     password: yup.string().required("Povinné pole"),
@@ -22,11 +22,6 @@ interface EditUsernameDialogProps {
     close: () => void
 }
 
-interface SubmitData {
-    password: string
-    user: User
-}
-
 export default function EditUsernameDialog(props: EditUsernameDialogProps) {
     const { open, close } = props;
     const { user } = useContext(UserContext);
@@ -36,9 +31,17 @@ export default function EditUsernameDialog(props: EditUsernameDialogProps) {
         resolver: yupResolver(schema)
     });
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => handleChangeUsername(data);
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        if (user) {
+            const updatedData = {
+                password: data.password,
+                user: { ...user, username: data.username }
+            };
+            mutate(updatedData);
+        }
+    };
 
-    const { mutate } = useMutation((data: SubmitData) => fetchPut(urls.user + user?.id, data),
+    const { mutate } = useMutation((data: EditSubmitData) => fetchPut(urls.user + user?.id, data),
         {
             onSuccess: (response: { message: string }) => {
                 const { message } = response;
@@ -56,16 +59,6 @@ export default function EditUsernameDialog(props: EditUsernameDialogProps) {
             }
         }
     );
-
-    const handleChangeUsername = (data: Inputs) => {
-        if (user) {
-            const updatedData = {
-                password: data.password,
-                user: { ...user, username: data.username }
-            };
-            mutate(updatedData);
-        }
-    };
 
     return (
         <Dialog open={open} onClose={close}>
@@ -96,7 +89,7 @@ export default function EditUsernameDialog(props: EditUsernameDialogProps) {
                 </DialogContent>
 
                 <Button sx={{ m: 1, float: "right" }} type="submit" size="large">{"Změnit"}</Button>
-                <Button sx={{ m: 1, float: "right" }} type="button" color="error" size="large" onClick={close}>{"Zavřít"}</Button>
+                <Button sx={{ m: 1, float: "right" }} color="error" size="large" onClick={close}>{"Zavřít"}</Button>
 
             </form>
         </Dialog>
