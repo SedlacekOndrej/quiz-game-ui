@@ -4,6 +4,7 @@ import { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QuizContext } from "../contexts/QuizContext";
 import { UserContext } from "../contexts/UserContext";
+import CustomSnackbar from "./CustomSnackbar";
 
 interface NavBarProps {
     title: string
@@ -28,13 +29,9 @@ export default function NavBar(props: NavBarProps) {
         navigate("/");
     };
 
-    const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+    const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
 
-    const handleCloseMenu = () => {
-        setAnchorEl(null);
-    };
+    const handleCloseMenu = () => setAnchorEl(null);
 
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')) {
@@ -71,27 +68,30 @@ export default function NavBar(props: NavBarProps) {
                     </ListItemButton>
                 </ListItem>
             </List>
-            {!user && <Fragment>
-                <Divider />
-                <List>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={handleNavigate("login")}>
-                            <ListItemIcon>
-                                <Login color="success" />
-                            </ListItemIcon>
-                            <ListItemText primary={"Přihlášení"} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={handleNavigate("registration")}>
-                            <ListItemIcon>
-                                <PersonAdd color="success" />
-                            </ListItemIcon>
-                            <ListItemText primary={"Registrace"} />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </Fragment>}
+
+            {!user &&
+                <Fragment>
+                    <Divider />
+                    <List>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={handleNavigate("login")}>
+                                <ListItemIcon>
+                                    <Login color="success" />
+                                </ListItemIcon>
+                                <ListItemText primary={"Přihlášení"} />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={handleNavigate("registration")}>
+                                <ListItemIcon>
+                                    <PersonAdd color="success" />
+                                </ListItemIcon>
+                                <ListItemText primary={"Registrace"} />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </Fragment>
+            }
         </Box>
     );
 
@@ -104,7 +104,7 @@ export default function NavBar(props: NavBarProps) {
                             <MenuSharp />
                         </IconButton>
                         <Typography sx={{ flexGrow: 1 }} variant="h6">{title}</Typography>
-                        {user && (
+                        {user &&
                             <Fragment>
                                 <IconButton size="large" onClick={handleOpenMenu} color="inherit">
                                     <AccountCircle />
@@ -115,12 +115,14 @@ export default function NavBar(props: NavBarProps) {
                                     <MenuItem onClick={logout}><Logout sx={{ mr: 1 }} color="error" />{"Odhlásit"}</MenuItem>
                                 </Menu>
                             </Fragment>
-                        )}
+                        }
                     </Toolbar>
                 </AppBar>
             </Box>
 
             <Drawer anchor={"left"} open={openDrawer} onClose={toggleDrawer(false)}>{list()}</Drawer>
+
+            <CustomSnackbar />
         </>
     );
 }

@@ -43,7 +43,8 @@ export default function Leaderboards() {
             </Table>
           </TableContainer>
           :
-          <Typography sx={{ fontSize: 20 }}>{"Nebyl nalezen žádný uživatel"}</Typography>}
+          <Typography sx={{ fontSize: 20 }}>{"Nebyl nalezen žádný uživatel"}</Typography>
+        }
 
         <AllGamesHistory />
 

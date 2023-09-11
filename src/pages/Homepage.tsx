@@ -1,7 +1,6 @@
 import { Button, Container, Menu, MenuItem, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import CustomSnackbar from "../components/CustomSnackbar";
 import NavBar from "../components/NavBar";
 import { UserContext } from "../contexts/UserContext";
 
@@ -27,9 +26,7 @@ export default function Homepage() {
 
     const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}&questions=${numberOfQuestions}`);
 
-    const handleChange = (event: React.MouseEvent<HTMLElement>, number: number) => {
-        setNumberOfQuestions(number);
-    };
+    const handleChange = (event: React.MouseEvent<HTMLElement>, number: number) => setNumberOfQuestions(number);
 
     return (
         <>
@@ -52,7 +49,8 @@ export default function Homepage() {
                     <Typography sx={{ mt: 3, fontWeight: "bold", fontSize: 20 }}>
                         {"Zaregistrujte se nyní a ukažte všem, že právě VY jste tím nejlepším znalcem!"}
                     </Typography>
-                </Container>}
+                </Container>
+            }
 
             {user !== null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -83,8 +81,8 @@ export default function Homepage() {
                         <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>
                     </ToggleButtonGroup>
 
-                </Container>}
-            <CustomSnackbar />
+                </Container>
+            }
         </>
     );
 }

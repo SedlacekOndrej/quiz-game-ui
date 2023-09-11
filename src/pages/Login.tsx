@@ -23,12 +23,12 @@ type Inputs = yup.InferType<typeof schema>;
 export default function Login() {
     const { setUser } = useContext(UserContext);
     const { setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
     });
 
-    const navigate = useNavigate();
     const onSubmit: SubmitHandler<Inputs> = data => mutate(data);
 
     const { mutate } = useMutation((data: Inputs) => fetchPost(urls.login, data),

@@ -27,6 +27,8 @@ export default function Game() {
     const queryParams = new URLSearchParams(location.search);
     const type = queryParams.get("type");
     const numberOfQuestions = queryParams.get("questions");
+    const timeOut = timer > 0 ? false : true;
+    const color = timeOut ? "error" : "primary";
 
     const { data = {} as Questions } = useQuery<Questions>(["game"], ({ signal }) => fetchGet(urls.questions + params.continent + `?type=${type}&questions=${numberOfQuestions}`, signal));
 
@@ -45,7 +47,8 @@ export default function Game() {
                         questions: questions,
                         possibleAnswers: possibleAnswers,
                         userAnswers: userAnswers,
-                        rightAnswers: rightAnswers
+                        rightAnswers: rightAnswers,
+                        numberOfQuestions: questions.length
                     }
                 });
             },
@@ -87,10 +90,6 @@ export default function Game() {
         }
     };
 
-    const timeOut = timer > 0 ? false : true;
-
-    const color = timeOut ? "error" : "primary";
-
     const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
         setUserAnswers((prevAnswers) => {
             const newArray = [...prevAnswers];
@@ -116,27 +115,29 @@ export default function Game() {
     return (
         <>
             <NavBar title={continentName()} />
-            {user !== null ? <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {user !== null ?
+                <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
 
-                {gameType === "CAPITALS" &&
-                    <CapitalsGame states={questions} cities={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
-                }
+                    {gameType === "CAPITALS" &&
+                        <CapitalsGame states={questions} cities={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
+                    }
 
-                {gameType === "FLAGS" &&
-                    <FlagsGame flags={questions} states={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
-                }
+                    {gameType === "FLAGS" &&
+                        <FlagsGame flags={questions} states={possibleAnswers} timeOut={timeOut} handleChange={handleChange} />
+                    }
 
-                <Button sx={{ mt: 5 }} variant="contained" onClick={handleSendAnswers}>{"Odeslat odpovědi"}</Button>
-                <HomeNavigation />
+                    <Button sx={{ mt: 5 }} variant="contained" onClick={handleSendAnswers}>{"Odeslat odpovědi"}</Button>
+                    <HomeNavigation />
 
-                <Grid container sx={{ position: 'fixed', bottom: 30, right: 30, justifyContent: "end", zIndex: -1 }}>
-                    <Grid item xs={2} sx={{ textAlign: 'right' }}>
-                        <Fab size="large" color={color} variant="extended">{timeOut ? "Čas vypršel" : "Zbývající čas: " + timer}</Fab>
+                    <Grid container sx={{ position: 'fixed', bottom: 30, right: 30, justifyContent: "end", zIndex: -1 }}>
+                        <Grid item xs={2} sx={{ textAlign: 'right' }}>
+                            <Fab size="large" color={color} variant="extended">{timeOut ? "Čas vypršel" : "Zbývající čas: " + timer}</Fab>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Container>
+                </Container>
                 :
-                <AccessDenied />}
+                <AccessDenied />
+            }
         </>
     );
 }

@@ -6,11 +6,11 @@ import HomeNavigation from "../components/HomeNavigation";
 import NavBar from "../components/NavBar";
 
 export default function Results() {
-    const { score, continent, secondsLeft, gameType, questions, possibleAnswers, userAnswers, rightAnswers } = useLocation().state;
+    const { score, continent, secondsLeft, gameType, questions, possibleAnswers, userAnswers, rightAnswers, numberOfQuestions } = useLocation().state;
 
     const navigate = useNavigate();
 
-    const handleTryAgain = () => navigate(`/${continent}?type=${gameType}`);
+    const handleTryAgain = () => navigate(`/${continent}?type=${gameType}&questions=${numberOfQuestions}`);
 
     const continentName = () => {
         switch (continent) {

@@ -23,6 +23,7 @@ type Inputs = yup.InferType<typeof schema>;
 
 export default function Registration() {
     const { setOpenSnackbar, setSeverity, setResponseMessage } = useContext(QuizContext);
+    const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: yupResolver(schema)
@@ -46,8 +47,6 @@ export default function Registration() {
             }
         }
     );
-
-    const navigate = useNavigate();
 
     return (
         <>
