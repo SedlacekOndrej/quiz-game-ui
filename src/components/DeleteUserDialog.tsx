@@ -37,7 +37,7 @@ export default function DeleteUserDialog(props: DeleteUserProps) {
     {
         onSuccess: () => {
             setSeverity("success");
-            setResponseMessage("Uživatel " + user?.username + " byl úspěšně smazán!");
+            setResponseMessage("Uživatel " + user?.username + " byl úspěšně smazán");
             setOpenSnackbar(true);
             setUser(null);
             navigate("/");
@@ -65,12 +65,13 @@ export default function DeleteUserDialog(props: DeleteUserProps) {
                         label="Heslo"
                         helperText={errors.password?.message}
                         error={!!errors.password?.message}
+                        type="password"
                         {...register("password")}
                     />
                 </DialogContent>
 
-                <Button onClick={close}>{"Zavřít"}</Button>
-                <Button type="submit" color="error">{"Smazat"}</Button>
+                <Button sx={{ m: 1, float: "right" }} type="submit" color="error">{"Smazat"}</Button>
+                <Button sx={{ m: 1, float: "right" }} onClick={close}>{"Zavřít"}</Button>
 
             </form>
         </Dialog>

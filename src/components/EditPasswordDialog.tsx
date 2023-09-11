@@ -66,7 +66,7 @@ export default function EditPasswordDialog(props: EditPasswordDialogProps) {
         <Dialog open={open} onClose={close}>
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <DialogTitle>{"Změnit uživatelské jméno"}</DialogTitle>
+                <DialogTitle>{"Změnit heslo"}</DialogTitle>
 
                 <DialogContent sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 

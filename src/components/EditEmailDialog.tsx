@@ -66,7 +66,7 @@ export default function EditEmailDialog(props: EditEmailDialogProps) {
         <Dialog open={open} onClose={close}>
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <DialogTitle>{"Změnit uživatelské jméno"}</DialogTitle>
+                <DialogTitle>{"Změnit email"}</DialogTitle>
 
                 <DialogContent sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
@@ -76,6 +76,7 @@ export default function EditEmailDialog(props: EditEmailDialogProps) {
                         label="Heslo"
                         helperText={errors.password?.message}
                         error={!!errors.password?.message}
+                        type="password"
                         {...register("password")}
                     />
 
