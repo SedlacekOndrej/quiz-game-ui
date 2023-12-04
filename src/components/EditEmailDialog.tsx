@@ -5,7 +5,7 @@ import { useMutation } from "react-query";
 import * as yup from "yup";
 import { EditSubmitData } from "../models/EditSubmitData";
 import { fetchPut } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { QuizContext } from "../contexts/QuizContext";
@@ -19,8 +19,8 @@ const schema = yup.object({
 type Inputs = yup.InferType<typeof schema>;
 
 interface EditEmailDialogProps {
-    open: boolean
-    close: () => void
+    readonly open: boolean
+    readonly close: () => void
 }
 
 export default function EditEmailDialog(props: EditEmailDialogProps) {

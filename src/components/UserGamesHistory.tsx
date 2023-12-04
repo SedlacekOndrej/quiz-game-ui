@@ -6,7 +6,7 @@ import { User } from "../models/User";
 import moment from "moment";
 
 interface UserGamesHistoryProps {
-    user: User | undefined
+    readonly user: User | undefined
 }
 
 export default function UserGamesHistory(props: UserGamesHistoryProps) {

@@ -3,7 +3,7 @@ import { User } from "../models/User";
 import { useQuery } from "react-query";
 import { fetchGet } from "../utils/Fetches";
 import HomeNavigation from "../components/HomeNavigation";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import AllGamesHistory from "../components/AllGamesHistory";
 import NavBar from "../components/NavBar";
 

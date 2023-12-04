@@ -7,7 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 import CustomSnackbar from "./CustomSnackbar";
 
 interface NavBarProps {
-    title: string
+    readonly title: string
 }
 
 export default function NavBar(props: NavBarProps) {

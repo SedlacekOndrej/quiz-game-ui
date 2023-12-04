@@ -11,7 +11,7 @@ import { UserContext } from "../contexts/UserContext";
 import { Questions } from "../models/Questions";
 import { Submit } from "../models/Submit";
 import { fetchGet, fetchPost } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import { useLocation } from "react-router-dom";
 import NavBar from "../components/NavBar";
 

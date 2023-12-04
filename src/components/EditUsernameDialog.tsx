@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { QuizContext } from "../contexts/QuizContext";
 import { UserContext } from "../contexts/UserContext";
 import { fetchPut } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import { EditSubmitData } from "../models/EditSubmitData";
 
 const schema = yup.object({
@@ -18,8 +18,8 @@ const schema = yup.object({
 type Inputs = yup.InferType<typeof schema>;
 
 interface EditUsernameDialogProps {
-    open: boolean
-    close: () => void
+    readonly open: boolean
+    readonly close: () => void
 }
 
 export default function EditUsernameDialog(props: EditUsernameDialogProps) {

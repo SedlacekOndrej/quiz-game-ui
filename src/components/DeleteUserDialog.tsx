@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
 import { fetchDelete } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { QuizContext } from "../contexts/QuizContext";
@@ -17,8 +17,8 @@ const schema = yup.object({
 type Inputs = yup.InferType<typeof schema>;
 
 interface DeleteUserProps {
-    open: boolean
-    close: () => void
+    readonly open: boolean
+    readonly close: () => void
 }
 
 export default function DeleteUserDialog(props: DeleteUserProps) {

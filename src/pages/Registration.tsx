@@ -8,8 +8,8 @@ import { useMutation } from "react-query";
 import { fetchPost } from "../utils/Fetches";
 import { QuizContext } from "../contexts/QuizContext";
 import HomeNavigation from "../components/HomeNavigation";
-import { urls } from "../utils/urls";
 import NavBar from "../components/NavBar";
+import { urls } from "../utils/Urls";
 
 const schema = yup.object({
     username: yup.string().required("Povinné pole").min(4, "Musí obsahovat alespoň 4 znaky"),

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import NavBar from "../components/NavBar";
 import { fetchGet } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import { Encyclopedia } from "../models/Encyclopedia";
 import { Box, Container, TextField, Typography } from "@mui/material";
 import HomeNavigation from "../components/HomeNavigation";

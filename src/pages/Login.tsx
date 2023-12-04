@@ -10,7 +10,7 @@ import { QuizContext } from "../contexts/QuizContext";
 import { User } from "../models/User";
 import { UserContext } from "../contexts/UserContext";
 import HomeNavigation from "../components/HomeNavigation";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import NavBar from "../components/NavBar";
 
 const schema = yup.object({

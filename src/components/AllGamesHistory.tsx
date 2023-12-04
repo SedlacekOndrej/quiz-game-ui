@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { GameHistory } from "../models/GameHistory";
 import { fetchGet } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import moment from "moment";
 
 export default function AllGamesHistory() {

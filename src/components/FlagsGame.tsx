@@ -3,13 +3,13 @@ import { green } from "@mui/material/colors";
 import { ChangeEvent, Fragment } from "react";
 
 interface FlagsGameProps {
-    flags: string[]
-    states: string[]
-    timeOut?: boolean
-    handleChange?: (index: number) => (event: ChangeEvent<HTMLInputElement>) => void
-    userAnswers?: string[]
-    rightAnswers?: string[]
-    finished?: boolean
+    readonly flags: string[]
+    readonly states: string[]
+    readonly timeOut?: boolean
+    readonly handleChange?: (index: number) => (event: ChangeEvent<HTMLInputElement>) => void
+    readonly userAnswers?: string[]
+    readonly rightAnswers?: string[]
+    readonly finished?: boolean
 }
 
 export default function FlagsGame(props: FlagsGameProps) {

@@ -5,7 +5,7 @@ import { UserContext } from "../contexts/UserContext";
 import { useQuery } from "react-query";
 import { User } from "../models/User";
 import { fetchGet } from "../utils/Fetches";
-import { urls } from "../utils/urls";
+import { urls } from "../utils/Urls";
 import AccessDenied from "../components/AccessDenied";
 import UserGamesHistory from "../components/UserGamesHistory";
 import NavBar from "../components/NavBar";
