@@ -1,28 +1,39 @@
-import { Box, Button, Container, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import { Button, Container, Menu, MenuItem, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import CustomSnackbar from "../components/CustomSnackbar";
+import NavBar from "../components/NavBar";
 import { UserContext } from "../contexts/UserContext";
 
 export default function Homepage() {
     const { user } = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [gameType, setGameType] = useState<string>("");
+    const [numberOfQuestions, setNumberOfQuestions] = useState<number>(10);
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleCapitalsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setGameType("capitals");
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => setAnchorEl(null);
+    const handleFlagsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setGameType("flags");
+        setAnchorEl(event.currentTarget);
+    };
 
-    const gameLink = (continent: string) => () => navigate(`/${continent}`);
+    const handleCloseMenu = () => setAnchorEl(null);
+
+    const gameLink = (continent: string) => () => navigate(`/${continent}?type=${gameType}&questions=${numberOfQuestions}`);
+
+    const handleChange = (event: React.MouseEvent<HTMLElement>, number: number) => setNumberOfQuestions(number);
 
     return (
         <>
+            <NavBar title="Hlavní stránka" />
             {user === null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />
+                    <img src={process.env.PUBLIC_URL + '/globe256.png'} alt="logo" />
                     <Typography sx={{ mt: 3, fontWeight: "bold", fontSize: 30 }}>
                         {"Vítejte ve hře Kvíz!"}
                     </Typography>
@@ -38,14 +49,18 @@ export default function Homepage() {
                     <Typography sx={{ mt: 3, fontWeight: "bold", fontSize: 20 }}>
                         {"Zaregistrujte se nyní a ukažte všem, že právě VY jste tím nejlepším znalcem!"}
                     </Typography>
-                </Container>}
-                
+                </Container>
+            }
+
             {user !== null &&
                 <Container sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Logo" />
+                    <img src={process.env.PUBLIC_URL + '/globe256.png'} alt="Logo" />
+
                     <Typography sx={{ m: 3, fontWeight: "bold", fontSize: 25 }}>{"Vyber si kategorii"}</Typography>
-                    <Button sx={{ mt: 2 }} size="large" onClick={handleClick}>{"Hlavní města"}</Button>
-                    <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>
+                    <Button size="large" onClick={handleCapitalsClick}>{"Hlavní města"}</Button>
+                    <Button sx={{ mb: 3 }} size="large" onClick={handleFlagsClick}>{"Vlajky"}</Button>
+
+                    <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu} onClick={handleCloseMenu}>
                         <MenuItem onClick={gameLink("europe")}>
                             <Typography>{"Evropa"}</Typography>
                         </MenuItem>
@@ -59,13 +74,15 @@ export default function Homepage() {
                             <Typography>{"Afrika"}</Typography>
                         </MenuItem>
                     </Menu>
-                    <Tooltip title="Již brzy">
-                        <Box sx={{ mt: 2 }}>
-                            <Button size="large" disabled>{"Vlajky"}</Button>
-                        </Box>
-                    </Tooltip>
-                </Container>}
-            <CustomSnackbar />
+
+                    <Typography sx={{ mb: 2, fontWeight: "bold", fontSize: 25 }}>{"Počet otázek"}</Typography>
+                    <ToggleButtonGroup sx={{ mb: 2 }} value={numberOfQuestions} onChange={handleChange} size="large" color="primary" exclusive>
+                        <ToggleButton value={10} disabled={numberOfQuestions === 10}>{"10"}</ToggleButton>
+                        <ToggleButton value={20} disabled={numberOfQuestions === 20 || user.level < 5}>{"20"}</ToggleButton>
+                    </ToggleButtonGroup>
+
+                </Container>
+            }
         </>
     );
 }

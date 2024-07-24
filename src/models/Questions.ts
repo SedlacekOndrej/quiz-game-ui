@@ -1,4 +1,5 @@
 export interface Questions {
-    states: string[]
-    cities: string[]
+    questions: string[]
+    possibleAnswers: string[]
+    gameType: string
 }

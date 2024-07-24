@@ -34,7 +34,7 @@ export const fetchPost = async (url: string, data: unknown): Promise<any> => {
 
 };
 
-export const fetchPut = async (url: string, data: unknown): Promise<Response> => {
+export const fetchPut = async (url: string, data: unknown): Promise<any> => {
     const initReq: RequestInit = await getRequestInit("PUT", data);
     const response: Response = await fetch(url, initReq);
 
@@ -52,6 +52,7 @@ export const fetchDelete = async (url: string): Promise<Response> => {
         throw await getQueryErrorMessage(response);
     return response;
 };
+
 const getRequestInit = async (method: string, data?: unknown, signal?: AbortSignal): Promise<RequestInit> => {
     const request: RequestInit = {
         method: method,
